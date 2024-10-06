@@ -1,8 +1,7 @@
 
 .container{
-    padding-top: 10px;
+    padding: 20px 0;
     width: 40%;
-    height: 70%;
     background-color: rgba(14, 14, 14,0.5);
     border-radius: 15px;
 }
@@ -41,5 +40,25 @@
 .tasksList{
     margin: 15px 50px;
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+}
+
+.tasksList ol{
+
+}
+
+.tasksList li{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.deleteBtn, .doneBtn, .topBtn, .bottomBtn{
+    font-size: 1.5rem;
+    margin-left: 20px;
+
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
 }
