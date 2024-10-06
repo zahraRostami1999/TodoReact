@@ -10,11 +10,34 @@ function ToDo() {
   };
 
   const addTask = () => {
-    setTasks((t) => [...t, newTask]);
-    setNewTask("");
+    if(newTask.trim() !== ""){
+      setTasks((t) => [...t, newTask]);
+      setNewTask("");
+    }
   };
 
-  const deleteTask = (index) => {};
+  const deleteTask = (index) => {
+    const updateTask = tasks.filter((_, i) => i !== index);
+    setTasks(updateTask);
+  };
+
+const topTask = (index) => {
+  if(index > 0){
+    const updateTask = [...tasks];
+    [updateTask[index], updateTask[index-1]] = [updateTask[index-1], updateTask[index]];
+    setTasks(updateTask);
+  }
+};
+
+const bottomTask = (index) => {
+  if(index < tasks.length - 1){
+    const updateTask = [...tasks];
+    [updateTask[index], updateTask[index+1]] = [updateTask[index+1], updateTask[index]];
+    setTasks(updateTask);
+  }
+
+
+};
 
   return (
     <>
@@ -36,10 +59,9 @@ function ToDo() {
               <li key={index}>
                 {task}
                 <div className={styles.btn}>
-                  <button className={styles.deleteBtn}>👎</button>
-                  <button className={styles.doneBtn}>👌</button>
-                  <button className={styles.topBtn}>☝️</button>
-                  <button className={styles.bottomBtn}>👇</button>
+                  <button onClick={() => deleteTask(index)} className={styles.deleteBtn}>👎</button>
+                  <button onClick={() => topTask(index)} className={styles.topBtn}>☝️</button>
+                  <button onClick={() => bottomTask(index)} className={styles.bottomBtn}>👇</button>
                 </div>
               </li>
             ))}
