@@ -76,13 +76,13 @@ function ToDo() {
                     onClick={() => doneTask(index)}
                     className={styles.doneBtn}
                   >
-                    👌
+                    ✔️
                   </button>
                   <button
                     onClick={() => deleteTask(index)}
                     className={styles.deleteBtn}
                   >
-                    👎
+                    ❌
                   </button>
                   <button
                     onClick={() => topTask(index)}
