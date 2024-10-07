@@ -25,32 +25,32 @@ function ToDo() {
     setTasks(updateTask);
   };
 
-  // const deleteTask = (index) => {
-  //   const updateTask = tasks.filter((_, i) => i !== index);
-  //   setTasks(updateTask);
-  // };
+  const deleteTask = (index) => {
+    const updateTask = tasks.filter((_, i) => i !== index);
+    setTasks(updateTask);
+  };
 
-  // const topTask = (index) => {
-  //   if (index > 0) {
-  //     const updateTask = [...tasks];
-  //     [updateTask[index], updateTask[index - 1]] = [
-  //       updateTask[index - 1],
-  //       updateTask[index],
-  //     ];
-  //     setTasks(updateTask);
-  //   }
-  // };
+  const topTask = (index) => {
+    if (index > 0) {
+      const updateTask = [...tasks];
+      [updateTask[index], updateTask[index - 1]] = [
+        updateTask[index - 1],
+        updateTask[index],
+      ];
+      setTasks(updateTask);
+    }
+  };
 
-  // const bottomTask = (index) => {
-  //   if (index < tasks.length - 1) {
-  //     const updateTask = [...tasks];
-  //     [updateTask[index], updateTask[index + 1]] = [
-  //       updateTask[index + 1],
-  //       updateTask[index],
-  //     ];
-  //     setTasks(updateTask);
-  //   }
-  // };
+  const bottomTask = (index) => {
+    if (index < tasks.length - 1) {
+      const updateTask = [...tasks];
+      [updateTask[index], updateTask[index + 1]] = [
+        updateTask[index + 1],
+        updateTask[index],
+      ];
+      setTasks(updateTask);
+    }
+  };
 
   return (
     <>
@@ -79,19 +79,19 @@ function ToDo() {
                     👌
                   </button>
                   <button
-                    // onClick={() => deleteTask(index)}
+                    onClick={() => deleteTask(index)}
                     className={styles.deleteBtn}
                   >
                     👎
                   </button>
                   <button
-                    // onClick={() => topTask(index)}
+                    onClick={() => topTask(index)}
                     className={styles.topBtn}
                   >
                     ☝️
                   </button>
                   <button
-                    // onClick={() => bottomTask(index)}
+                    onClick={() => bottomTask(index)}
                     className={styles.bottomBtn}
                   >
                     👇
