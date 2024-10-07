@@ -2,42 +2,55 @@ import { useState } from "react";
 import styles from "./ToDo.module.css";
 
 function ToDo() {
-  const [tasks, setTasks] = useState(["Try React Project", "Eat Bread"]);
-  const [newTask, setNewTask] = useState("");
+  const [tasks, setTasks] = useState([
+    { title: "complete To-Do List project", done: false },
+    { title: "eat dinner", done: false },
+  ]);
+  const [newTask, setNewTask] = useState({title: "", done: false});
 
   const handleInputChange = (e) => {
-    setNewTask(e.target.value);
+    setNewTask({...newTask, title: e.target.value});
   };
 
   const addTask = () => {
-    if(newTask.trim() !== ""){
+    if (newTask.title.trim() !== "") {
       setTasks((t) => [...t, newTask]);
-      setNewTask("");
+      setNewTask({title: "", done: false});
     }
   };
 
-  const deleteTask = (index) => {
-    const updateTask = tasks.filter((_, i) => i !== index);
+  const doneTask = (index) => {
+    const updateTask = [...tasks];
+    updateTask[index].done = true;
     setTasks(updateTask);
   };
 
-const topTask = (index) => {
-  if(index > 0){
-    const updateTask = [...tasks];
-    [updateTask[index], updateTask[index-1]] = [updateTask[index-1], updateTask[index]];
-    setTasks(updateTask);
-  }
-};
+  // const deleteTask = (index) => {
+  //   const updateTask = tasks.filter((_, i) => i !== index);
+  //   setTasks(updateTask);
+  // };
 
-const bottomTask = (index) => {
-  if(index < tasks.length - 1){
-    const updateTask = [...tasks];
-    [updateTask[index], updateTask[index+1]] = [updateTask[index+1], updateTask[index]];
-    setTasks(updateTask);
-  }
+  // const topTask = (index) => {
+  //   if (index > 0) {
+  //     const updateTask = [...tasks];
+  //     [updateTask[index], updateTask[index - 1]] = [
+  //       updateTask[index - 1],
+  //       updateTask[index],
+  //     ];
+  //     setTasks(updateTask);
+  //   }
+  // };
 
-
-};
+  // const bottomTask = (index) => {
+  //   if (index < tasks.length - 1) {
+  //     const updateTask = [...tasks];
+  //     [updateTask[index], updateTask[index + 1]] = [
+  //       updateTask[index + 1],
+  //       updateTask[index],
+  //     ];
+  //     setTasks(updateTask);
+  //   }
+  // };
 
   return (
     <>
@@ -48,7 +61,7 @@ const bottomTask = (index) => {
             name="inputTask"
             type="text"
             placeholder="Add a new task"
-            value={newTask}
+            value={newTask.title}
             onChange={(e) => handleInputChange(e)}
           />
           <button onClick={addTask}>Add Task</button>
@@ -56,12 +69,33 @@ const bottomTask = (index) => {
         <div className={styles.tasksList}>
           <ol>
             {tasks.map((task, index) => (
-              <li key={index}>
-                {task}
+              <li key={index} >
+                <p style={{textDecoration:  task.done ? 'line-through' : 'none'}}>{task.title}</p>     
                 <div className={styles.btn}>
-                  <button onClick={() => deleteTask(index)} className={styles.deleteBtn}>👎</button>
-                  <button onClick={() => topTask(index)} className={styles.topBtn}>☝️</button>
-                  <button onClick={() => bottomTask(index)} className={styles.bottomBtn}>👇</button>
+                  <button
+                    onClick={() => doneTask(index)}
+                    className={styles.doneBtn}
+                  >
+                    👌
+                  </button>
+                  <button
+                    // onClick={() => deleteTask(index)}
+                    className={styles.deleteBtn}
+                  >
+                    👎
+                  </button>
+                  <button
+                    // onClick={() => topTask(index)}
+                    className={styles.topBtn}
+                  >
+                    ☝️
+                  </button>
+                  <button
+                    // onClick={() => bottomTask(index)}
+                    className={styles.bottomBtn}
+                  >
+                    👇
+                  </button>
                 </div>
               </li>
             ))}
