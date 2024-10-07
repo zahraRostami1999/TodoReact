@@ -64,7 +64,7 @@ function ToDo() {
             value={newTask.title}
             onChange={(e) => handleInputChange(e)}
           />
-          <button onClick={addTask}>Add Task</button>
+          <button onClick={addTask}>Add</button>
         </div>
         <div className={styles.tasksList}>
           <ol>
