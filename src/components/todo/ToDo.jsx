@@ -3,8 +3,7 @@ import styles from "./ToDo.module.css";
 
 function ToDo() {
   const [tasks, setTasks] = useState([
-    { title: "complete To-Do List project", done: false },
-    { title: "eat dinner", done: false },
+
   ]);
   const [newTask, setNewTask] = useState({title: "", done: false});
 
@@ -76,7 +75,7 @@ function ToDo() {
                     onClick={() => doneTask(index)}
                     className={styles.doneBtn}
                   >
-                    ✔️
+                    ✅
                   </button>
                   <button
                     onClick={() => deleteTask(index)}
@@ -88,13 +87,13 @@ function ToDo() {
                     onClick={() => topTask(index)}
                     className={styles.topBtn}
                   >
-                    ☝️
+                    ☝🏻
                   </button>
                   <button
                     onClick={() => bottomTask(index)}
                     className={styles.bottomBtn}
                   >
-                    👇
+                    👇🏻
                   </button>
                 </div>
               </li>
