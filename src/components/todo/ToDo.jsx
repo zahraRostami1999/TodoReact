@@ -61,7 +61,7 @@ function ToDo() {
   return (
     <>
       <div className={styles.container}>
-        <h1>To-Do List</h1>
+        <h1 className="text-red-600">To-Do List</h1>
         <div className={styles.inputTask}>
           <input
             name="inputTask"
