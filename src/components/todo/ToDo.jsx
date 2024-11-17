@@ -75,8 +75,7 @@ function ToDo() {
               onChange={handleInputChange}
             />
             <button
-              className="bg-[#fc7814] font-Poppins text-[white] cursor-pointer text-xl px-[8px] py-2 rounded-[50%] border-[none] mx-10;
-"
+              className="bg-[#fc7814] font-Poppins text-[white] cursor-pointer text-xl px-[8px] py-3 rounded-[50%] border-[none] ml-3"
               onClick={addTask}
             >
               Add
@@ -87,8 +86,7 @@ function ToDo() {
               {tasks.map((task, index) => (
                 <li
                   key={index}
-                  className="border flex justify-between mt-2.5 p-2.5 rounded-[10px] border-solid border-white shadow-zinc-600 shadow-md
-"
+                  className="border flex justify-between mt-2.5 p-2.5 rounded-[10px] border-solid border-white shadow-zinc-600 shadow-md"
                 >
                   <p
                     style={{
@@ -101,26 +99,25 @@ function ToDo() {
                   <div className={styles.btn}>
                     <button
                       onClick={() => doneTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none]
-"
+                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
                     >
                       ✅
                     </button>
                     <button
                       onClick={() => deleteTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none]"
+                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
                     >
                       ❌
                     </button>
                     <button
                       onClick={() => topTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none]"
+                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
                     >
                       ☝🏻
                     </button>
                     <button
                       onClick={() => bottomTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none]"
+                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
                     >
                       👇🏻
                     </button>
