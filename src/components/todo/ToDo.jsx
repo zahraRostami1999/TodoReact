@@ -59,15 +59,16 @@ function ToDo() {
 
   return (
     <>
-      <div className="w-[95%] my-3">
-        <div className="py-1 font-Poppins font-semibold">
-          <h1 className="text-center text-3xl ">Xanim Qiz To-Do List</h1>
+      <div className="my-3 sm:w-10/12 md:w-3/4">
+        <div className="py-1 font-sans font-semibold">
+          <h1 className="sm:text-center sm:text-2xl md:text-left font-bold">Xanim Qiz To-Do List</h1>
+          <h2 className="sm:text-center sm:text-xl md:text-left font-semibold">Just Do It Babe 🥰</h2>
         </div>
 
-        <div className="py-1 my-10">
-          <div className="bg-[rgba(14,14,14,0.5)] rounded-[15px]  flex justify-center items-center px-3 py-5">
+        <div className="py-1 mt-7">
+          <div className="flex justify-center items-center px-3 py-2 border-b-2">
             <input
-              className="text-xl w-[89%] px-3 py-[7px] rounded-[30px] outline-none border-none font-Poppins"
+              className="text-lg w-[89%] px-5 py-[10px] rounded-[30px] outline-none border-none "
               name="inputTask"
               type="text"
               placeholder="Add your new task..."
@@ -75,51 +76,53 @@ function ToDo() {
               onChange={handleInputChange}
             />
             <button
-              className="bg-[#fc7814] font-Poppins text-[white] cursor-pointer text-xl px-[8px] py-3 rounded-[50%] border-[none] ml-3"
+              className="bg-[#fc7814] text-[white] cursor-pointer text-lg px-[8px] py-3 rounded-[50%] border-[none] ml-3"
               onClick={addTask}
             >
               Add
             </button>
           </div>
-          <div className="my-10 mx-3">
+          <div className="my-5 mx-2 ">
             <ol>
               {tasks.map((task, index) => (
                 <li
                   key={index}
-                  className="border flex justify-between mt-2.5 p-2.5 rounded-[10px] border-solid border-white shadow-zinc-600 shadow-md"
+                  className="border flex mt-2.5 rounded-[10px] border-solid border-white shadow-zinc-600 shadow-md sm:px-2 py-1"
                 >
                   <p
                     style={{
                       textDecoration: task.done ? "line-through" : "none",
                     }}
-                    className="text-xl font-Poppins font-medium"
+                    className="text-base font-medium w-2/3 break-words whitespace-normal"
                   >
                     {task.title}
                   </p>
-                  <div className={styles.btn}>
+                  <div className="sm:w-1/3 flex justify-around overflow-hidden items-center">
                     <button
                       onClick={() => doneTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
+                      className="sm:text-base bg-transparent cursor-pointer rounded-[50%] border-[none] hover:scale-110"
                     >
-                      ✅
+
+                      ✔
+
                     </button>
                     <button
                       onClick={() => deleteTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
+                      className="sm:text-sm bg-transparent cursor-pointer ml-1 rounded-[50%] border-[none] hover:scale-110"
                     >
-                      ❌
+                      ✖
                     </button>
                     <button
                       onClick={() => topTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
+                      className="sm:text-base bg-transparent cursor-pointer ml-1 rounded-[50%] border-[none] hover:scale-110"
                     >
-                      ☝🏻
+                      ▲
                     </button>
                     <button
                       onClick={() => bottomTask(index)}
-                      className="text-xl bg-transparent cursor-pointer ml-5 rounded-[50%] border-[none] hover:scale-110"
+                      className="sm:text-base bg-transparent cursor-pointer ml-1 rounded-[50%] border-[none] hover:scale-110"
                     >
-                      👇🏻
+                      ▼
                     </button>
                   </div>
                 </li>
