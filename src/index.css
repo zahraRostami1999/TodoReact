@@ -19,9 +19,7 @@ code {
 .App{
   display: flex;
   justify-content: center;
-
-  height: 100vh;
-  background-image: linear-gradient(to bottom right, #bce2f9   , #5ba5d3  );
+  background-image: linear-gradient(to bottom right, #d0e1ec   , #2b99dd  );
 }
 
 *{
