@@ -5,6 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      sm: '300px', 
+      md: '720px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1530px',
+    },
     extend: {
       fontFamily: {
         'great-vibes': ['"Great Vibes"', 'cursive'],
@@ -12,6 +19,7 @@ export default {
         'Poppins': ['Poppins', 'cursive'],
       },
     },
-  },
+  
   plugins: [],
+}
 }
