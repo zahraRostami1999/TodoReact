@@ -2,7 +2,7 @@ const AddButton = () => {
     return ( 
         <>
         <div>
-            <button>Add</button>
+            <button className="bg-red-400">Add</button>
         </div>
         </>
      );
