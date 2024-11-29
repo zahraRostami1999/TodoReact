@@ -4,11 +4,11 @@ import InputTasks from "../components/InputTasks";
 const TodoPage = () => {
     return (
         <>
-            <div className="">
-                <div>
+            <div className="w-full">
+                <div className="bg-green-500 w-full">
                     <Header />
                 </div>
-                <div>
+                <div className="bg-pink-400">
                     <InputTasks />
                 </div>
             </div>
