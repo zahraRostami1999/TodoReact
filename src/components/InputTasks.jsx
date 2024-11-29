@@ -1,10 +1,10 @@
-import Input from "./input";
+import Input from "./Input";
 import AddButton from "./AddButton";
 
 const InputTasks = () => {
     return (
         <>
-            <div>
+            <div className="flex justify-center">
                 <Input />
                 <AddButton />
             </div>
