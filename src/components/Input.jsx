@@ -2,7 +2,7 @@ const Input = () => {
     return ( 
         <>
         <div>
-            <input type="text" />
+            <input type="text" className="border"/>
         </div>
         </>
      );
