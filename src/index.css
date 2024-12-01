@@ -19,6 +19,7 @@ code {
 .App{
   display: flex;
   justify-content: center;
+  /* background-image: linear-gradient(to bottom right,  #fef9c5, #ffd600); */
 }
 
 *{
