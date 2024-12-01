@@ -6,9 +6,9 @@ export default {
   ],
   theme: {
     screens: {
-      sm: '300px', 
+      sm: '300px',
       md: '720px',
-      lg: '1024px',
+      lg: '1000px',
       xl: '1280px',
       '2xl': '1530px',
     },
@@ -18,8 +18,12 @@ export default {
         'satisfy': ['Satisfy', 'cursive'],
         'Poppins': ['Poppins', 'cursive'],
       },
+      colors: {
+        blackBg: "rgba(0,0,0,0.5)"
+      },
     },
-  
-  plugins: [],
-}
+
+
+    plugins: [],
+  }
 }
