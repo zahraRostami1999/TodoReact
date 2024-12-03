@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import styles from "./todoStyle.module.css"
 import checkedImg from "../../assets/checked.png";
 import binImg from '../../assets/bin.png';
 import upImg from "../../assets/up.png";
