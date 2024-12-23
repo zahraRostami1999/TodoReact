@@ -84,8 +84,8 @@ Hello
           <div className="py-1 w-full flex flex-wrap items-start absolute top-36 pb-20 ">
             <div className="w-full flex justify-center h-16 text-neutral-700 ">
               <div className=" xs:w-11/12 sm:w-11/12 md:w-9/12 lg:w-9/12 xl:w-8/12 bg-white flex rounded-full overflow-hidden shadow-zinc-600 shadow-md focus-within:outline focus-within:outline-blackBg">
-                <div className="w-11/12 ">
-                  <input type="text" className="w-full h-full outline-none  px-7 text-2xl font-semibold" placeholder="Add your new task..."
+                <div className="w-11/12">
+                  <input type="text" className="w-full h-full outline-none  px-7 lg:text-3xl md:text-2xl sm:text-base text-sm font-semibold" placeholder="Add your new task..."
                     value={newTask.title}
                     onChange={handleInputChange} />
                 </div>
@@ -108,7 +108,7 @@ Hello
                         style={{
                           textDecoration: task.done ? "line-through" : "none",
                         }}
-                        className="text-lg font-medium sm:w-1/2 w-11/12 break-words whitespace-normal"
+                        className="ml-3 text-lg font-medium sm:w-1/2 w-11/12 break-words whitespace-normal"
                       >
                         {task.title}
                       </p>
