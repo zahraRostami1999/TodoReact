@@ -111,10 +111,10 @@ function ToDo() {
                       </p>
                     </div>
                     <div
-                      className={` flex justify-center items-center rounded-full text-xl  ${activeButton === index
+                      className={` flex justify-center items-center px-3 py-0.5 rounded-full text-xl  ${activeButton === index
                         ? "bg-orange-400 hover:text-zinc-100 text-zinc-100"
                         : "text-purple-800 hover:text-purple-950"
-                        } px-2.5 cursor-pointer relative`}
+                        }  cursor-pointer relative`}
                       onClick={() => toggleDropDown(index)}
                     >
                       ⫶
