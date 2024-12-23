@@ -82,11 +82,7 @@ function ToDo() {
             <div className="w-full flex justify-center h-16 text-neutral-700 ">
               <div className=" xs:w-11/12 sm:w-11/12 md:w-9/12 lg:w-9/12 xl:w-8/12 bg-white flex rounded-full overflow-hidden shadow-zinc-600 shadow-md focus-within:outline focus-within:outline-blackBg">
                 <div className="w-11/12">
-<<<<<<< HEAD
-                  <input type="text" className="w-full h-full outline-none  px-7 text-2xl font-semibold" placeholder="Add your new task..."
-=======
                   <input type="text" className="w-full h-full outline-none  px-7 lg:text-3xl md:text-2xl sm:text-base text-sm font-semibold" placeholder="Add your new task..."
->>>>>>> e5eb51f06dd8407e58c645a8b1f55019d915a28a
                     value={newTask.title}
                     onChange={handleInputChange} />
                 </div>
