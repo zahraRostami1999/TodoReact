@@ -1,12 +1,11 @@
 import ToDo from './components/todo/ToDo.jsx';
-import TodoPage from './pages/TodoPage';
 
 
 function App() {
+  document.title = "ToDo";
   return (
     <div className="App">
       <ToDo />
-      {/* <TodoPage /> */}
     </div>
   );
 }
