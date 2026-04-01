@@ -55,14 +55,14 @@ export default function GetPassword({
           type='password'
           label='رمزعبور'
           value={userInput.password}
-          onInput={(e) => handlePasswordChange(e, "password")}
+          onChange={(e) => handlePasswordChange(e, "password")}
         />
         {!haveAccount && (
           <FloatInput
             type='password'
             label='تکرار رمزعبور'
             value={userInput.confirmPassword}
-            onInput={(e) => handlePasswordChange(e, "confirmPassword")}
+            onChange={(e) => handlePasswordChange(e, "confirmPassword")}
           />
         )}
         <div className='h-6'>

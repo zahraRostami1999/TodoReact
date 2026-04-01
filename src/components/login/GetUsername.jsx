@@ -44,7 +44,7 @@ export default function GetUsername({
                     type={"text"}
                     label='نام کاربری'
                     value={userInput.username}
-                    onInput={(e) => handleUsernameChange(e)}
+                    onChange={(e) => handleUsernameChange(e)}
                 />
                 <div className='h-6'>
                     <p className='text-sm text-right pt-1 px-1 text-red-500 font-medium'>
