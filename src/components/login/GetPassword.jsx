@@ -56,6 +56,9 @@ export default function GetPassword({
           label='رمزعبور'
           value={userInput.password}
           onChange={(e) => handlePasswordChange(e, "password")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleClickButton();
+          }}
         />
         {!haveAccount && (
           <FloatInput
@@ -63,6 +66,9 @@ export default function GetPassword({
             label='تکرار رمزعبور'
             value={userInput.confirmPassword}
             onChange={(e) => handlePasswordChange(e, "confirmPassword")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleClickButton();
+            }}
           />
         )}
         <div className='h-6'>
@@ -84,7 +90,7 @@ export default function GetPassword({
       <LoginButton
         text='ورود'
         onClick={handleClickButton}
-        disable={error.length > 0 || (errorMessage||"").length > 0}
+        disable={error.length > 0 || (errorMessage || "").length > 0}
       />
     </div>
   )

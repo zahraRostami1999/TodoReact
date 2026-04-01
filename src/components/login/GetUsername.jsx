@@ -45,6 +45,9 @@ export default function GetUsername({
                     label='نام کاربری'
                     value={userInput.username}
                     onChange={(e) => handleUsernameChange(e)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") handleClickButton();
+                    }}
                 />
                 <div className='h-6'>
                     <p className='text-sm text-right pt-1 px-1 text-red-500 font-medium'>
