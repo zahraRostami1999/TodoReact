@@ -10,53 +10,73 @@ function LoginPage() {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
-async function handleCheckUsername() {
+  async function handleCheckUsername() {
     setIsLoading(true);
     let operationFinished = false;
     let timeoutFinished = false;
 
     const timeoutId = setTimeout(() => {
-        timeoutFinished = true;
-        if (operationFinished) {
-            setIsLoading(false);
-            setStep(2);
-        }
+      timeoutFinished = true;
+      if (operationFinished) {
+        setIsLoading(false);
+        setStep(2);
+      }
     }, 2000);
 
     try {
-        const userExists = await Auth.checkUserName(userInput.username);
-        setHaveAccount(userExists);
-        operationFinished = true;
+      const userExists = await Auth.checkUserName(userInput.username);
+      setHaveAccount(userExists);
+      operationFinished = true;
 
-        if (timeoutFinished) {
-            setIsLoading(false);
-            setStep(2);
-        }
-    } catch (error) {
-        console.error("Error checking username:", error);
-        clearTimeout(timeoutId);
+      if (timeoutFinished) {
         setIsLoading(false);
-    } 
-}
+        setStep(2);
+      }
+    } catch (error) {
+      console.error("Error checking username:", error);
+      clearTimeout(timeoutId);
+      setIsLoading(false);
+    }
+  }
 
 
   async function handleLoginBtn() {
     setIsLoading(true);
+    let operationFinished = false;
+    let timeoutFinished = false;
+
+    const timeoutId = setTimeout(() => {
+      timeoutFinished = true;
+      if (operationFinished) {
+        setIsLoading(false);
+        window.location.href = "/todo";
+      }
+    }, 1000);
+
     if (userInput.username && userInput.password) {
       const response = await Auth.login(haveAccount, userInput.username, userInput.password);
-      setError(response.message)
       if (response) {
+        setError(response.message)
         localStorage.setItem("refresh", response.refresh_token);
         localStorage.setItem("access", response.access_token);
         if (localStorage.getItem("refresh") === response.refresh_token &&
           localStorage.getItem("access") === response.access_token) {
-          setTimeout(() => {
+          operationFinished = true;
+          if (timeoutFinished) {
+            setIsLoading(false);
             window.location.href = "/todo";
-          }, 1000);
+          }
         }
+      }
+    } else {
+      operationFinished = true;
+      if (timeoutFinished) {
+        setIsLoading(false);
+        window.location.href = "/todo";
       }
     }
   }
+
 
   function handleChangeInput(newValue, key) {
     setUserInput((prev) => ({ ...prev, [key]: newValue }))
@@ -80,7 +100,7 @@ async function handleCheckUsername() {
           )}
           {
             step === 2 && (
-              <GetPassword userInput={userInput} haveAccount={haveAccount} errorMessage={error} handleChangeInput={handleChangeInput} handleClickButton={handleLoginBtn} isLoading={isLoading}/>
+              <GetPassword userInput={userInput} haveAccount={haveAccount} errorMessage={error} handleChangeInput={handleChangeInput} handleClickButton={handleLoginBtn} isLoading={isLoading} />
             )
           }
         </main>
