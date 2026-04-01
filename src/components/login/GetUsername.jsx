@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import FloatInput from "../FloatInput"
-import { Link } from "react-router-dom"
 import ErrMsg from "../../config/errorMessages"
 import Const from "../../config/constants"
 import LoginButton from "../LoginButton"

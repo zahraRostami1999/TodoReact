@@ -3,7 +3,7 @@ import TodoPage from './pages/TodoPage.jsx';
 import ToDo from './components/todo/ToDo.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from './pages/LoginPage.jsx';
-import { startAutoRefresh } from './services/API.jsx';
+import Auth from './services/API.jsx';
 
 
 function App() {
@@ -25,14 +25,15 @@ function App() {
         window.location.href = "/todo";
       }
     }
-  }, [tokenIsValid]); 
+  }, [tokenIsValid]);
 
   useEffect(() => {
     const refresh = localStorage.getItem("refresh");
     if (refresh && refresh !== 'null' && refresh !== 'undefined') {
-      startAutoRefresh();
+      const auth = new Auth();
+      auth.refresh();
     }
-  }, []); 
+  }, []);
 
   return (
     <div className="App min-h-screen">
