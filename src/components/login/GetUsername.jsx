@@ -8,8 +8,9 @@ export default function GetUsername({
     userInput,
     handleChangeInput,
     handleClickButton,
+    isLoading
 }) {
-    const [error, setError] = useState(ErrMsg.USER.NO)
+    const [error, setError] = useState(ErrMsg.USER.NO);    
 
     const handleUsernameChange = (e) => {
         e.preventDefault()
@@ -46,7 +47,7 @@ export default function GetUsername({
                     value={userInput.username}
                     onChange={(e) => handleUsernameChange(e)}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") handleClickButton();
+                        if (e.key === "Enter" && error.length === 0) handleClickButton();
                     }}
                 />
                 <div className='h-6'>
@@ -60,6 +61,7 @@ export default function GetUsername({
                     text='ورود'
                     onClick={handleClickButton}
                     disable={error.length > 0}
+                    isLoading={isLoading}
                 />
                 <LoginButton text='ورود با Souperlopers' disable={true} />
             </div>

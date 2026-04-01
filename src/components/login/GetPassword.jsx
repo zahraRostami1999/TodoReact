@@ -10,6 +10,7 @@ export default function GetPassword({
   handleChangeInput,
   handleClickButton,
   errorMessage,
+  isLoading
 }) {
   const [error, setError] = useState("")
 
@@ -57,7 +58,7 @@ export default function GetPassword({
           value={userInput.password}
           onChange={(e) => handlePasswordChange(e, "password")}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleClickButton();
+            if (e.key === "Enter" && error.length === 0) handleClickButton();
           }}
         />
         {!haveAccount && (
@@ -67,7 +68,7 @@ export default function GetPassword({
             value={userInput.confirmPassword}
             onChange={(e) => handlePasswordChange(e, "confirmPassword")}
             onKeyDown={(e) => {
-              if (e.key === "Enter") handleClickButton();
+              if (e.key === "Enter" && error.length === 0) handleClickButton();
             }}
           />
         )}
@@ -91,6 +92,7 @@ export default function GetPassword({
         text='ورود'
         onClick={handleClickButton}
         disable={error.length > 0 || (errorMessage || "").length > 0}
+        isLoading={isLoading}
       />
     </div>
   )
