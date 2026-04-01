@@ -1,54 +1,40 @@
 import React, { useState } from 'react';
-import Step1 from '../components/login/Step1';
-import Step2 from '../components/login/Step2';
-import { checkUserName, login } from '../services/API';
-import { startAutoRefresh } from '../services/API';
+import GetUsername from '../components/login/GetUsername';
+import GetPassword from '../components/login/GetPassword';
+import Auth from '../services/API'
 
 function LoginPage() {
   const [step, setStep] = useState(1);
   const [haveAccount, setHaveAccount] = useState(false);
-  const [data, setData] = useState({ username: "", password: "", confirmPassword: "" });
+  const [userInput, setUserInput] = useState({ username: "", password: "", confirmPassword: "" });
   const [error, setError] = useState();
 
-  const handleCheckUsername = async () => {
-    try {
-      if (data.username) {
-        const response = await checkUserName(data.username);
-        setHaveAccount(response.user_exists);
-        setStep(2);
-      }
-    } catch {
-      console.log("Error checking username");
-    }
+  async function handleCheckUsername(){
+    const userExists = await Auth.checkUserName(userInput.username)
+    setHaveAccount(userExists)
+    setStep(2)
   }
-  // startAutoRefresh();
-  const handleLoginBtn = async () => {
-    try {
-      if (data.username && data.password) {
-        const response = await login(haveAccount, data.username, data.password);
-        setError(response.message)        
-        if (response) {
-          localStorage.setItem("refresh", response.refresh_token);
-          localStorage.setItem("access", response.access_token);
-          if (localStorage.getItem("refresh") === response.refresh_token &&
-            localStorage.getItem("access") === response.access_token) {
-            setTimeout(() => {
-              window.location.href = "/todo";
-            }, 1000);
-          }
+
+  async function handleLoginBtn(){
+    if (userInput.username && userInput.password) {
+      const response = await Auth.login(haveAccount, userInput.username, userInput.password);
+      setError(response.message)        
+      if (response) {
+        localStorage.setItem("refresh", response.refresh_token);
+        localStorage.setItem("access", response.access_token);
+        if (localStorage.getItem("refresh") === response.refresh_token &&
+          localStorage.getItem("access") === response.access_token) {
+          setTimeout(() => {
+            window.location.href = "/todo";
+          }, 1000);
         }
       }
-    } catch (error) {
-      console.log("Error in login/signup");
     }
-  };  
+  }
 
-  const handleChangeInput = (e, key) => {
-    setData((prev) => ({
-      ...prev,
-      [key]: e.target.value
-    }));
-  };
+  function handleChangeInput(newValue, key) {
+    setUserInput((prev) => ({ ...prev, [key]: newValue }))
+  }
 
   return (
     <div className='w-full min-h-screen
@@ -64,11 +50,11 @@ function LoginPage() {
         </header>
         <main className='flex flex-col gap-10'>
           {step === 1 && (
-            <Step1 data={data} handleChangeInput={handleChangeInput} handleClickButton={handleCheckUsername} />
+            <GetUsername userInput={userInput} handleChangeInput={handleChangeInput} handleClickButton={handleCheckUsername} />
           )}
           {
             step === 2 && (
-              <Step2 data={data} haveAccount={haveAccount} errorMessage={error} handleChangeInput={handleChangeInput} handleClickButton={handleLoginBtn} />
+              <GetPassword userInput={userInput} haveAccount={haveAccount} errorMessage={error} handleChangeInput={handleChangeInput} handleClickButton={handleLoginBtn} />
             )
           }
         </main>
