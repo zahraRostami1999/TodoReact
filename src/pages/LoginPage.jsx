@@ -8,17 +8,43 @@ function LoginPage() {
   const [haveAccount, setHaveAccount] = useState(false);
   const [userInput, setUserInput] = useState({ username: "", password: "", confirmPassword: "" });
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function handleCheckUsername(){
-    const userExists = await Auth.checkUserName(userInput.username)
-    setHaveAccount(userExists)
-    setStep(2)
-  }
+async function handleCheckUsername() {
+    setIsLoading(true);
+    let operationFinished = false;
+    let timeoutFinished = false;
 
-  async function handleLoginBtn(){
+    const timeoutId = setTimeout(() => {
+        timeoutFinished = true;
+        if (operationFinished) {
+            setIsLoading(false);
+            setStep(2);
+        }
+    }, 2000);
+
+    try {
+        const userExists = await Auth.checkUserName(userInput.username);
+        setHaveAccount(userExists);
+        operationFinished = true;
+
+        if (timeoutFinished) {
+            setIsLoading(false);
+            setStep(2);
+        }
+    } catch (error) {
+        console.error("Error checking username:", error);
+        clearTimeout(timeoutId);
+        setIsLoading(false);
+    } 
+}
+
+
+  async function handleLoginBtn() {
+    setIsLoading(true);
     if (userInput.username && userInput.password) {
       const response = await Auth.login(haveAccount, userInput.username, userInput.password);
-      setError(response.message)        
+      setError(response.message)
       if (response) {
         localStorage.setItem("refresh", response.refresh_token);
         localStorage.setItem("access", response.access_token);
@@ -50,11 +76,11 @@ function LoginPage() {
         </header>
         <main className='flex flex-col gap-10'>
           {step === 1 && (
-            <GetUsername userInput={userInput} handleChangeInput={handleChangeInput} handleClickButton={handleCheckUsername} />
+            <GetUsername userInput={userInput} handleChangeInput={handleChangeInput} handleClickButton={handleCheckUsername} isLoading={isLoading} />
           )}
           {
             step === 2 && (
-              <GetPassword userInput={userInput} haveAccount={haveAccount} errorMessage={error} handleChangeInput={handleChangeInput} handleClickButton={handleLoginBtn} />
+              <GetPassword userInput={userInput} haveAccount={haveAccount} errorMessage={error} handleChangeInput={handleChangeInput} handleClickButton={handleLoginBtn} isLoading={isLoading}/>
             )
           }
         </main>
