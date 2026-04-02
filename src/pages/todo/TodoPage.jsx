@@ -1,6 +1,6 @@
-import Header from "../components/Header";
-import InputTasks from "../components/InputTasks";
-import TasksList from "../components/TasksList";
+import Header from "../../components/Header";
+import InputTasks from "../../components/InputTasks";
+import TasksList from "../../components/TasksList";
 
 const TodoPage = () => {
 

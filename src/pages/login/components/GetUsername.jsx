@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import FloatInput from "../FloatInput"
-import ErrMsg from "../../config/errorMessages"
-import Const from "../../config/constants"
-import LoginButton from "../LoginButton"
+import FloatInput from "../../../components/FloatInput";
+import ErrMsg from "../../../config/errorMessages";
+import Const from "../../../config/constants";
+import LoginButton from "../../../components/LoginButton";
 
 export default function GetUsername({
     userInput,

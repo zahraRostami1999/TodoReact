@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import GetUsername from '../components/login/GetUsername';
-import GetPassword from '../components/login/GetPassword';
-import Auth from '../services/API'
+import GetUsername from '../login/components/GetUsername';
+import GetPassword from '../login/components/GetPassword';
+import Auth from '../../services/API';
 
 function LoginPage() {
   const [step, setStep] = useState(1);
