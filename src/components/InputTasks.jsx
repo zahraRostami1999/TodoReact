@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-const InputTasks = () => {
-    const [tasks, setTasks] = useState([]);
+const InputTasks = ({addTask}) => {
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const ltr = newTaskTitle && !/^[\u0600-\u06FF]/.test(newTaskTitle)
 
@@ -9,9 +8,9 @@ const InputTasks = () => {
         setNewTaskTitle(e.target.value);
     };
 
-    const addTask = () => {
+    const handleAddBtn = () => {
         if (newTaskTitle.trim() !== "") {
-            setTasks((prevTasks) => [...prevTasks, { title: newTaskTitle, status: false }]);
+            addTask(newTaskTitle);
             setNewTaskTitle("");
         }
     };
@@ -24,7 +23,7 @@ const InputTasks = () => {
                 <button
                     className="bg-orange-500 active:bg-orange-700 hover:bg-orange-600 text-white font-bold py-4 px-7 rounded-full transition duration-300 ease-in-out flex items-center justify-center text-3xl lg:text-4xl shadow-md
                      focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 m-2"
-                    onClick={addTask}
+                    onClick={handleAddBtn}
                 >
                     +
                 </button>
@@ -38,7 +37,7 @@ const InputTasks = () => {
                     value={newTaskTitle}
                     onChange={handleInputChange}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") addTask();
+                        if (e.key === "Enter") handleAddBtn();
                     }}
                 />
             </div>

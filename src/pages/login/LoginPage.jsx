@@ -24,7 +24,7 @@ function LoginPage() {
     }, 2000);
 
     try {
-      // const userExists = await Api.Auth.usernameExist(userInput.username);
+      const userExists = await Api.Auth.usernameExist(userInput.username);
       setHaveAccount(userExists);
       operationFinished = true;
 
@@ -42,40 +42,25 @@ function LoginPage() {
 
   async function handleLoginBtn() {
     setIsLoading(true);
-    let operationFinished = false;
     let timeoutFinished = false;
 
     const timeoutId = setTimeout(() => {
       timeoutFinished = true;
-      if (operationFinished) {
-        setIsLoading(false);
-        window.location.href = "/todo";
-      }
+      setIsLoading(false);
+      window.location.href = "/todo";
     }, 1000);
 
     if (userInput.username && userInput.password) {
-      const response = await Auth.login(haveAccount, userInput.username, userInput.password);
+      const response = haveAccount
+        ? await Api.Auth.login(userInput.username, userInput.password)
+        : await Api.Auth.register(userInput.username, userInput.password);
       if (response) {
-        setError(response.message)
-        localStorage.setItem("refresh", response.refresh_token);
-        localStorage.setItem("access", response.access_token);
-        if (localStorage.getItem("refresh") === response.refresh_token &&
-          localStorage.getItem("access") === response.access_token) {
-          operationFinished = true;
-          if (timeoutFinished) {
-            setIsLoading(false);
-            window.location.href = "/todo";
-          }
-        }
-      }
-    } else {
-      operationFinished = true;
-      if (timeoutFinished) {
+        setError(response.message);
         setIsLoading(false);
-        window.location.href = "/todo";
       }
     }
   }
+
 
 
   function handleChangeInput(newValue, key) {

@@ -8,9 +8,9 @@ import { BsDash, BsPlus } from "react-icons/bs";
 
 
 function TaskItem({ task, index, onDone, onDeleted, onMoveUp, onMoveDown, onToggleDropdown, visibleDropDownIndex, activeButton }) {
-    const titleLengthLimit = 50;
+    const titleLengthLimit = 90;
     const [isHovered, setIsHovered] = useState(false);
-    const isTaskTextLong = task.title.length > titleLengthLimit;
+    const isTaskTextLong = task.description.length > titleLengthLimit;
     const [isExpand, setIsExpand] = useState(false);
 
     return (
@@ -70,25 +70,25 @@ function TaskItem({ task, index, onDone, onDeleted, onMoveUp, onMoveDown, onTogg
 
             </div>
 
-            <div className="flex items-start flex-grow w-[10%]">
+            <div className="flex items-center flex-grow w-[10%]">
 
                 <p
                     style={{
-                        textDecoration: task.status ? "line-through" : "none",
-                        color: task.status ? "#a0a0a0" : "#525252",
+                        textDecoration: task.done ? "line-through" : "none",
+                        color: task.done ? "#a0a0a0" : "#525252",
                         flexShrink: 1,
                         wordBreak: 'break-word',
                         overflowWrap: 'break-word',
                     }}
-                    className="ml-3 text-neutral-600 text-lg text-right font-medium 
+                    className="ml-5 mr-3 text-neutral-600 text-lg text-right font-medium 
                                whitespace-normal flex-grow"
                 >
                     {
-                        isTaskTextLong ? (<ExpandLongText max_char={titleLengthLimit} text={task.title} is_expand={isExpand} handleClickIsExpand={(expand) => setIsExpand(!expand)} />) :
-                            task.title
+                        isTaskTextLong ? (<ExpandLongText max_char={titleLengthLimit} text={task.description} is_expand={isExpand} handleClickIsExpand={(expand) => setIsExpand(!expand)} />) :
+                            task.description
                     }
                 </p>
-                <span className="text-2xl mr-3 flex-shrink-0">💫</span>
+                {/* <span className="text-3xl mr-5 flex-shrink-0">💫</span> */}
             </div>
 
 

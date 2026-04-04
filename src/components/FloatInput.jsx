@@ -11,7 +11,9 @@ export default function FloatInput({ type, value, onChange, label, onKeyDown }) 
 	return (
 		<div className='w-full relative'>
 			<input
-				type={type}
+				type={type === "text" ? "text" :
+					displayPassword ? "text" : "password"
+				}
 				value={value}
 				onChange={onChange}
 				onKeyDown={onKeyDown}
@@ -40,7 +42,7 @@ export default function FloatInput({ type, value, onChange, label, onKeyDown }) 
 					{
 						browserName === "Chrome" && (
 							displayPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />
-						)   
+						)
 					}
 				</button>
 			)}

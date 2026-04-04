@@ -1,15 +1,25 @@
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import InputTasks from "../../components/InputTasks";
 import TasksList from "../../components/TasksList";
-
+import Api from "../../services/Api";
 const TodoPage = () => {
+    const [tasks_list, setTasks_list] = useState([]);
+    const [tasks_should_change, setTasks_should_change] = useState(false);
 
-    const myTasks = [
-        { title: "تمرین React برای یک ساعت", status: false },
-        { title: "یادگیری Tailwind و استایل‌دهی تسک‌ها", status: true },
-        { title: "حل ۲ تا باگ در xfvxcvfdnvjkjdsnhfvndhsjkfhnsdjhfsdhfsdhfkjajdolefshfsdrhfgvhsdgvxvkxgvsrdhtfgiursehftiushgvihsdighvidfhgvbdfxbgvishfcishgosirgojxdgvbddhgiudhrfghsdjfgvjdgolherghierhg,nxzkcgvsiurgfg;ljdsfgjojresojgesrgojdsroighkdfjgbsrigtisdjrjperpgjrioeguihidhgjdgkjdsrogyujoiejrtgjlkjdslkfjgiouerhgkzxjngvjzfdgberhjgberitgkejrgkjdfgbedghedresrjkckldsnvvndvjdjbrgggreigbs.dnmfvlsanfa'alwe[rawe,lf;sdkmgvsdkmgksdgsdkgprd.xc,bmkdlmdپروژه", status: false },
-        { title: "مرور کدنویسی و ریفکتور سبک", status: false },
-    ];
+    const addTask = async (task_index) => {
+        Api.Task.create(task_index);
+        setTasks_should_change(true);
+    };
+
+    useEffect(() => {
+        const getTasks = async () => {
+            let tasksList = await Api.Task.getAll(1, 10);
+            setTasks_list(tasksList.content);
+            setTasks_should_change(false);
+        }
+        getTasks();
+    }, [tasks_should_change])
 
     return (
         <>
@@ -18,9 +28,9 @@ const TodoPage = () => {
                     {/* header */}
                     <Header />
                     {/* input */}
-                    <InputTasks />
+                    <InputTasks addTask={addTask} />
                     {/* list */}
-                    <TasksList initialTasks={myTasks} />
+                    <TasksList initialTasks={tasks_list} handleChange={() => setTasks_should_change(true)} />
                 </div>
             </div>
         </>

@@ -52,7 +52,7 @@ export default function GetUsername({
                 />
                 <div className='h-6'>
                     <p className='text-sm text-right pt-1 px-1 text-red-500 font-medium' dir="rtl">
-                        ‼️{error}
+                        {error}
                     </p>
                 </div>
             </div>

@@ -7,32 +7,27 @@ import Api from './services/Api';
 function App() {
   document.title = "HISTX ToDo List";
 
-  let accessToken = localStorage.getItem("access");
-  let refreshToken = localStorage.getItem("refresh");
+  let tokens = localStorage.getItem("myAuthTokens");
+  let parse = tokens ? JSON.parse(tokens) : null;
+  const accessToken = parse ? parse.access : null;
+  const refreshToken = parse ? parse.refresh : null;
 
   let tokenIsValid = (accessToken && refreshToken && accessToken !== 'null' && refreshToken !== 'null' && accessToken !== 'undefined' && refreshToken !== 'undefined');
 
-  // useEffect(() => {
-  //   Api.Auth.init();
-  //   if (!tokenIsValid) {
-  //     if (window.location.pathname !== "/login") {
-  //       window.location.href = "/login";
-  //     }
-  //   }
-  //   else {
-  //     if (window.location.pathname !== "/todo") {
-  //       window.location.href = "/todo";
-  //     }
-  //   }
-  // }, [tokenIsValid]);
-
   useEffect(() => {
-    const refresh = localStorage.getItem("refresh");
-    if (refresh && refresh !== 'null' && refresh !== 'undefined') {
-      const auth = new Auth();
-      auth.refresh();
+    Api.Auth.init();
+    Api.Auth.isLogedIn();
+    if (!tokenIsValid) {
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
     }
-  }, []);
+    else {
+      if (window.location.pathname !== "/todo") {
+        window.location.href = "/todo";
+      }
+    }
+  }, [tokenIsValid]);
 
   return (
     <div className="App min-h-screen">
