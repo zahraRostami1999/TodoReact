@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import LoginPage from './pages/login/LoginPage.jsx';
 import TodoPage from './pages/todo/TodoPage.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Auth from './services/API.jsx';
-
+import Api from './services/Api';
 
 function App() {
   document.title = "HISTX ToDo List";
@@ -14,6 +13,7 @@ function App() {
   let tokenIsValid = (accessToken && refreshToken && accessToken !== 'null' && refreshToken !== 'null' && accessToken !== 'undefined' && refreshToken !== 'undefined');
 
   // useEffect(() => {
+  //   Api.Auth.init();
   //   if (!tokenIsValid) {
   //     if (window.location.pathname !== "/login") {
   //       window.location.href = "/login";
@@ -26,13 +26,13 @@ function App() {
   //   }
   // }, [tokenIsValid]);
 
-  // useEffect(() => {
-  //   const refresh = localStorage.getItem("refresh");
-  //   if (refresh && refresh !== 'null' && refresh !== 'undefined') {
-  //     const auth = new Auth();
-  //     auth.refresh();
-  //   }
-  // }, []);
+  useEffect(() => {
+    const refresh = localStorage.getItem("refresh");
+    if (refresh && refresh !== 'null' && refresh !== 'undefined') {
+      const auth = new Auth();
+      auth.refresh();
+    }
+  }, []);
 
   return (
     <div className="App min-h-screen">

@@ -81,7 +81,7 @@ export default function GetPassword({
                     className='text-sm text-right pt-1 px-1 text-red-500 font-semibold'
                     dir='rtl'
                   >
-                    {err} ‼️
+                    ‼️ {err}
                   </p>
                 </div>
               ),

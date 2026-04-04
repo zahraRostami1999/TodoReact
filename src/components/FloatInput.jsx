@@ -1,9 +1,12 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useBrowserInfo } from "./hooks/useBrowserInfo";
 
 export default function FloatInput({ type, value, onChange, label, onKeyDown }) {
 	const hasValue = value !== ""
 	const [displayPassword, setDisplayPassword] = useState(false)
-	const ltr = value && !/^[\u0600-\u06FF]/.test(value)
+	const ltr = value && !/^[\u0600-\u06FF]/.test(value);
+	const browserName = useBrowserInfo(); //Edge - Chrome
 
 	return (
 		<div className='w-full relative'>
@@ -18,7 +21,7 @@ export default function FloatInput({ type, value, onChange, label, onKeyDown }) 
 			<label
 				style={{ pointerEvents: "none" }}
 				className={`
-                    absolute -top-3 ${ltr ? "left-3" : "right-3"} px-1 font-semibold bg-white rounded-xl
+                    absolute -top-3 ${(ltr && type === "password") ? "left-3" : "right-3"} px-1 font-semibold bg-white rounded-xl
                     text-[15px] transition-all duration-300 text-neutral-700
                     bg-(--bg-container)
                     ${hasValue ? "-top-2.5 text-purple-600 bg-white rounded-xl" : "top-2.5"}
@@ -31,10 +34,14 @@ export default function FloatInput({ type, value, onChange, label, onKeyDown }) 
 			</label>
 			{type === "password" && (
 				<button
-					className={`text-3xl absolute ${ltr ? "right-3" : "left-3"} top-2`}
+					className={`text-3xl absolute text-neutral-500 pt-1 ${ltr ? "right-3" : "left-3"} top-2`}
 					onClick={() => setDisplayPassword(!displayPassword)}
 				>
-					{displayPassword ? "🙂" : "🫣"}
+					{
+						browserName === "Chrome" && (
+							displayPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />
+						)   
+					}
 				</button>
 			)}
 		</div>

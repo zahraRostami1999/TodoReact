@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import GetUsername from '../login/components/GetUsername';
 import GetPassword from '../login/components/GetPassword';
-import Auth from '../../services/API';
+import Api from '../../services/Api';
 
 function LoginPage() {
   const [step, setStep] = useState(1);
@@ -24,7 +24,7 @@ function LoginPage() {
     }, 2000);
 
     try {
-      const userExists = await Auth.checkUserName(userInput.username);
+      // const userExists = await Api.Auth.usernameExist(userInput.username);
       setHaveAccount(userExists);
       operationFinished = true;
 

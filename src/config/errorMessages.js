@@ -1,4 +1,4 @@
-import Const from "./constants"
+import Const from "./constants.js"
 
 export default class ErrMsg {
 	static PASS = {
