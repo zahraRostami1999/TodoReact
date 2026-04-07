@@ -6,6 +6,12 @@ export default class Const {
 		REFRESH_TRESHOLD: 1000 * 30, // 30 seconds before it get expired
 	}
 
+	static UI = {
+		LOAD: "یه لحظه صبر کن",
+		HAVE: "تو قبلا ثبت نام کردی، رمزعبورت رو وارد کن تا وارد سایت بشی",
+		DHAVE: "تو قبلا ثبت نام نکردی، اول یه پسورد وارد کن",
+	}
+
 	static USER = {
 		FORBID_CHARS: " ,/\\=+'\"[]{}*%@",
 		MIN: 4,

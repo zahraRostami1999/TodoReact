@@ -1,12 +1,10 @@
 import Cnst from "../../config/constants.js";
-import ErrMsg from "../../config/errorMessages.js"
 
 // api config
 export default class ApiConfig {
 	// common settings
 	_BASE_URL = Cnst.APP.API_BASE_URL
-	_CNN_ERR = ErrMsg.COMMON.CNN
-	TRACE = (...args) => true && console.error(...args)
+	_TRACE = (...args) => true && console.error(...args)
 
 	// auth & user settings
 	_TOKENS_KEY = Cnst.APP.TOKENS_KEY // the key in localStorage that holds token values

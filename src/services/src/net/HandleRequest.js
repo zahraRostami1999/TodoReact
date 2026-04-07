@@ -25,8 +25,6 @@ export default class HandleRequest {
 			// send request
 			let response = await fetch(endpoint, options)
 			const result = { status: response.status, body: {} }
-			// ok: result.ok,
-			// body: await result.json(),
 
 			// decode body
 			const temp_body = await response.json()
@@ -40,7 +38,8 @@ export default class HandleRequest {
 			}
 
 			// set ok
-			result.ok = result.ok || response.ok
+			result.ok =
+				typeof response.ok === "boolean" ? response.ok : result.body.ok
 
 			// decode headers
 			const headers = {}
@@ -55,7 +54,7 @@ export default class HandleRequest {
 		} catch (error) {
 			console.error(error)
 			// I don't know what to do with this error
-			return { ok: false, message: Api._CNN_ERR }
+			return null
 		}
 	}
 }

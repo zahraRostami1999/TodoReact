@@ -20,6 +20,7 @@ export default class Task {
 		const ep = `tasks?page=${page}&per_page=${per_page}`
 		const method = "GET"
 		const result = await this.#sendTaskRequest(ep, method)
+		if (result === null) return null
 		return {
 			"x-current-page": Number(result.headers["x-current-page"]) || 0,
 			"x-total-items": Number(result.headers["x-total-items"]),
@@ -32,33 +33,43 @@ export default class Task {
 		const ep = `task/${id}`
 		const body = { toggle: true }
 		const method = "PUT"
-		return (await this.#sendTaskRequest(ep, method, body)).body.id
+		const result = await this.#sendTaskRequest(ep, method, body)
+		if (result === null) return null
+		return result.body.id
 	}
 
 	moveUp = async (id) => {
 		const ep = `task/${id}`
 		const body = { move: "up" }
 		const method = "PUT"
-		return (await this.#sendTaskRequest(ep, method, body)).body.id
+		const result = await this.#sendTaskRequest(ep, method, body)
+		if (result === null) return null
+		return result.body.id
 	}
 
 	moveDown = async (id) => {
 		const ep = `task/${id}`
 		const body = { move: "down" }
 		const method = "PUT"
-		return (await this.#sendTaskRequest(ep, method, body)).body.id
+		const result = await this.#sendTaskRequest(ep, method, body)
+		if (result === null) return null
+		return result.body.id
 	}
 
 	create = async (text) => {
 		const ep = `task`
 		const method = "POST"
 		const body = { description: text.trim() }
-		return (await this.#sendTaskRequest(ep, method, body)).body.task_id
+		const result = await this.#sendTaskRequest(ep, method, body)
+		if (result === null) return null
+		return result.body.task_id
 	}
 
 	delete = async (id) => {
 		const ep = `task/${id}`
 		const method = "DELETE"
-		return await this.#sendTaskRequest(ep, method)
+		const result = await this.#sendTaskRequest(ep, method)
+		if (result === null) return null
+		return result.body.task_id
 	}
 }

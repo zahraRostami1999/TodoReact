@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import checkedImg from "../assets/checked.png"
-import binImg from '../assets/bin.png';
-import upImg from "../assets/up.png";
-import downImg from "../assets/down.png";
-import ExpandLongText from '../pages/todo/components/ExpandLongText';
+import { useState } from 'react';
+import checkedImg from "../../assets/checked.png"
+import binImg from '../../assets/bin.png';
+import upImg from "../../assets/up.png";
+import downImg from "../../assets/down.png";
+import ExpandLongText from '../../pages/home/components/ExpandLongText';
 import { BsDash, BsPlus } from "react-icons/bs";
 
 
@@ -80,7 +80,7 @@ function TaskItem({ task, index, onDone, onDeleted, onMoveUp, onMoveDown, onTogg
                         wordBreak: 'break-word',
                         overflowWrap: 'break-word',
                     }}
-                    className="ml-5 mr-3 text-neutral-600 text-lg text-right font-medium 
+                    className="ml-5 mr-3 my-2 text-neutral-600 text-lg text-right font-medium 
                                whitespace-normal flex-grow"
                 >
                     {
@@ -88,7 +88,6 @@ function TaskItem({ task, index, onDone, onDeleted, onMoveUp, onMoveDown, onTogg
                             task.description
                     }
                 </p>
-                {/* <span className="text-3xl mr-5 flex-shrink-0">💫</span> */}
             </div>
 
 

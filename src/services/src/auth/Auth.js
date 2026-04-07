@@ -9,9 +9,10 @@ import RefreshMethods from "./RefreshMethods.js"
  */
 
 export default class Auth extends RefreshMethods {
-	init = () => {
+	init = async () => {
 		this._stopRefresh()
 		if (this._canRefresh()) {
+			if (!this.isLogedIn()) await this._refresh()
 			this._autoRefresh()
 		} else {
 			this._deleteTokens()
@@ -19,40 +20,37 @@ export default class Auth extends RefreshMethods {
 	}
 
 	usernameExist = async (username) => {
-		if (this.isLogedIn()) return
+		if (this.isLogedIn()) return null
 
 		// define endpoint and options
 		const ep = `users/${username}`
 		const method = "GET"
-
 		const result = await Api._sendRequest(ep, method)
 
-		if (!result.ok) return null // error
-		return result.body.user_exists // user state
+		if (result === null) return null // error
+		if (!result.ok) return result // error
+
+		return result // user state
 	}
 
 	login = async (username, password, ep = false) => {
-		if (this.isLogedIn()) return
+		if (this.isLogedIn()) return null
 
 		ep = ep || "auth/login"
 		const method = "POST"
 		const body = { username, password }
-
 		const result = await Api._sendRequest(ep, method, body)
 
-		if (!result.ok) return null // error
+		if (result === null) return null // error
+		if (!result.ok) return result // error
 
-		// save received tokens
-		this._saveTokens(result.body)
+		this._saveTokens(result.body) // save received tokens
+		this._autoRefresh() // start autorefresh
 
-		// start autorefresh
-		this._autoRefresh()
-		return result.body // tokens
+		return result // tokens
 	}
 
 	register = async (username, password) => {
-		if (this.isLogedIn()) return
-
 		const ep = "user"
 		return this.login(username, password, ep)
 	}
@@ -64,15 +62,15 @@ export default class Auth extends RefreshMethods {
 		const method = "POST"
 		const headers = { ...this.getAuthHeader() }
 		const body = { refresh: this._getTokens().refresh }
-
 		const result = await Api._sendRequest(ep, method, body, headers)
 
-		if (!result.ok) return null // error
+		if (result === null) return null // error
+		if (!result.ok) return result // error
 
 		this._stopRefresh()
 		this._deleteTokens()
 
-		return result.body // tokens
+		return result // tokens
 	}
 
 	getAuthHeader = () => {

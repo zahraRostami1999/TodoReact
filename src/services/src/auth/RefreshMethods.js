@@ -10,15 +10,15 @@ export default class RefreshMethods extends StorageMethods {
 	_autoRefresh = () => {
 		const after = this.#calcRefreshAfter()
 		// const after = 1000 * 4
-		const timeoutId = setTimeout(async () => await this.#refresh(), after)
+		const timeoutId = setTimeout(async () => await this._refresh(), after)
 		localStorage.setItem(Api._TIMEOUT_ID_KEY, timeoutId)
 	}
 
 	#calcRefreshAfter = () => {
-		return this._getTokens().access_exp - Date.now() - Api._REFRESH_TRESHOLD
+		return Math.max(0, this._getTokens().access_exp - Date.now() - Api._REFRESH_TRESHOLD)
 	}
 
-	#refresh = async () => {
+	_refresh = async () => {
 		// get tokens from localstorage
 		let tkns = this._getTokens()
 

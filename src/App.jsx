@@ -1,44 +1,43 @@
-import { useEffect } from 'react';
-import LoginPage from './pages/login/LoginPage.jsx';
-import TodoPage from './pages/todo/TodoPage.jsx';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Api from './services/Api';
+import { useEffect } from "react"
+import LoginPage from "./pages/login/LoginPage.jsx"
+import HomePage from "./pages/home/HomePage.jsx"
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom" // Keep these imports
+import Api from "./services/Api.js"
 
-function App() {
-  document.title = "HISTX ToDo List";
+export default function App() {
+	document.title = "HISTX ToDo List"
 
-  let tokens = localStorage.getItem("myAuthTokens");
-  let parse = tokens ? JSON.parse(tokens) : null;
-  const accessToken = parse ? parse.access : null;
-  const refreshToken = parse ? parse.refresh : null;
+	// run only once
+	useEffect(() => {
+		// loged in: start token refreshing operation
+		// loged out: delete old tokens
+		const init = async () => await Api.Auth.init()
+		init()
+	}, [])
 
-  let tokenIsValid = (accessToken && refreshToken && accessToken !== 'null' && refreshToken !== 'null' && accessToken !== 'undefined' && refreshToken !== 'undefined');
+	const navigate = useNavigate() // Hook for navigation
+	const location = useLocation() // Hook to get current location
+	const pathname = location.pathname;
+  
+	// run everytime path changes
+	useEffect(() => {
+		// send to home page if loged in user tried to access login page
+		if (Api.Auth.isLogedIn() && pathname === "/login") {
+			navigate("/")
+		}
 
-  useEffect(() => {
-    Api.Auth.init();
-    Api.Auth.isLogedIn();
-    if (!tokenIsValid) {
-      if (window.location.pathname !== "/login") {
-        window.location.href = "/login";
-      }
-    }
-    else {
-      if (window.location.pathname !== "/todo") {
-        window.location.href = "/todo";
-      }
-    }
-  }, [tokenIsValid]);
+		// send to login page if user is not loged in and not already on login page
+		if (!Api.Auth.isLogedIn() && pathname !== "/login") {
+			navigate("/login")
+		}
+	}, [navigate, pathname]) // Dependencies for useEffect
 
-  return (
-    <div className="App min-h-screen">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/todo' element={<TodoPage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div className='App min-h-screen'>
+			<Routes>
+				<Route path='/login' element={<LoginPage />} />
+				<Route path='/' element={<HomePage />} />
+			</Routes>
+		</div>
+	)
 }
-
-export default App;

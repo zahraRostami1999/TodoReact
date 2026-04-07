@@ -1,7 +1,4 @@
-I don't know how to enable progressing with "enter" can you do it for me? (I know that in forms you can press enter to submit the form without pressing button) => Done
-
-please consider a loading state when user have to wait for response (loading spinners, different colors) => Done
-
-login is not a component, why did you put it there? => IDU
-
-why are there 2 errors in step2 (GetPassword)? => Front and Back
+small components?
+password label transition (all ltr<->rtl transitions)
+password toggler disapper when navigating with tab
+title and logout are not symmetric (check the screenshot in root)

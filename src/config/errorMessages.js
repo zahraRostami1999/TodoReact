@@ -8,11 +8,6 @@ export default class ErrMsg {
 			`خیلی کوتاهه! باید  حداقل ${Const.PASS.MIN} حرف باشه. (${Const.PASS.MIN - crrLen} تا دیگه لازمه)`,
 	}
 
-	static ACCOUNT = {
-		HAVE: "تو قبلا ثبت نام کردی، رمزعبورت رو وارد کن تا وارد سایت بشی",
-		DHAVE: "تو قبلا ثبت نام نکردی، اول یه پسورد وارد کن",
-	}
-
 	static USER = {
 		NO: "هی! اول یه نام کاربری خوشگل برامون بنویس",
 		LONG: (crrLen) =>

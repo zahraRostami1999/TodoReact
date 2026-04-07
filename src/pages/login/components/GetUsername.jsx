@@ -1,70 +1,77 @@
-import React, { useState } from "react"
-import FloatInput from "../../../components/FloatInput";
-import ErrMsg from "../../../config/errorMessages";
-import Const from "../../../config/constants";
-import LoginButton from "../../../components/LoginButton";
+import { useEffect } from "react"
+import Const from "../../../config/constants"
+import ErrMsg from "../../../config/errorMessages"
+import Api from "../../../services/Api"
+import {
+	FloatInput,
+	LoginButton,
+	ErrorContainer,
+} from "../../../components/PageLogin/index"
 
-export default function GetUsername({
-    userInput,
-    handleChangeInput,
-    handleClickButton,
-    isLoading
-}) {
-    const [error, setError] = useState(ErrMsg.USER.NO);    
+export default function GetUsername({ get, set }) {
+	useEffect(() => set("error", ErrMsg.USER.NO), [])
 
-    const handleUsernameChange = (e) => {
-        e.preventDefault()
-        const username = e.target.value.trim()
+	const handleChange = (e) => {
+		e.preventDefault()
+		const username = e.target.value.trim()
 
-        let haveForbidChar = false
-        for (let i = 0; i < Const.USER.FORBID_CHARS.length; i++) {
-            const char = Const.USER.FORBID_CHARS.slice(i, i + 1)
-            if (username.indexOf(char) >= 0) {
-                setError(ErrMsg.COMMON.FORBID(char))
-                haveForbidChar = true
-            }
-        }
+		let haveForbidChar = false
+		for (let i = 0; i < Const.USER.FORBID_CHARS.length; i++) {
+			const char = Const.USER.FORBID_CHARS.slice(i, i + 1)
+			if (username.indexOf(char) >= 0) {
+				set("error", ErrMsg.COMMON.FORBID(char))
+				haveForbidChar = true
+			}
+		}
+		if (!username) {
+			set("error", ErrMsg.USER.NO)
+		} else if (username.length < Const.USER.MIN) {
+			set("error", ErrMsg.USER.SHORT(username.length))
+		} else if (username.length > Const.USER.MAX) {
+			set("error", ErrMsg.USER.LONG(username.length))
+		} else if (!haveForbidChar) {
+			set("error", "")
+		}
 
-        if (!username) {
-            setError(ErrMsg.USER.NO)
-        } else if (username.length < Const.USER.MIN) {
-            setError(ErrMsg.USER.SHORT(username.length))
-        } else if (username.length > Const.USER.MAX) {
-            setError(ErrMsg.USER.LONG(username.length))
-        } else if (!haveForbidChar) {
-            setError("")
-        }
+		set("userInput", { ...get("userInput"), username: e.target.value })
+	}
 
-        handleChangeInput(e.target.value, "username")
-    }
+	async function handleEnter(e) {
+		e.preventDefault()
+		if (get("error").length !== 0) return
 
-    return (
-        <div className='flex flex-col gap-7'>
-            <div className='flex flex-col gap-1'>
-                <FloatInput
-                    type={"text"}
-                    label='نام کاربری'
-                    value={userInput.username}
-                    onChange={(e) => handleUsernameChange(e)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter" && error.length === 0) handleClickButton();
-                    }}
-                />
-                <div className='h-6'>
-                    <p className='text-sm text-right pt-1 px-1 text-red-500 font-medium' dir="rtl">
-                        {error}
-                    </p>
-                </div>
-            </div>
-            <div className='flex flex-col gap-5'>
-                <LoginButton
-                    text='ورود'
-                    onClick={handleClickButton}
-                    disable={error.length > 0}
-                    isLoading={isLoading}
-                />
-                <LoginButton text='ورود با Souperlopers' disable={true} />
-            </div>
-        </div>
-    )
+		set("loading", true)
+		let userExist = await Api.Auth.usernameExist(get("userInput").username)
+		set("loading", false)
+
+		if (userExist === null) {
+			// error on fetching
+			set("error", ErrMsg.COMMON.CNN)
+		} else {
+			set("haveAccount", userExist.body.user_exists)
+			set("step", 2)
+		}
+	}
+
+	return (
+		<form onSubmit={(e) => handleEnter(e)} className='flex flex-col gap-7'>
+			<div className='flex flex-col gap-1'>
+				<FloatInput
+					type={"text"}
+					label='نام کاربری'
+					value={get("userInput").username}
+					onChange={(e) => handleChange(e)}
+				/>
+				<ErrorContainer text={get("error")} />
+			</div>
+			<div className='flex flex-col gap-5'>
+				<LoginButton
+					text='ورود'
+					disabled={get("error").length > 0}
+					isLoading={get("loading")}
+				/>
+				<LoginButton text='ورود با Souperlopers' disabled={true} />
+			</div>
+		</form>
+	)
 }

@@ -1,4 +1,4 @@
-import { addNewTask } from "../redux/TaskSlice";
+import { addNewTask } from "../../redux/TaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddButton = () => {

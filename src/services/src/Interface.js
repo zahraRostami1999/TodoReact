@@ -1,7 +1,7 @@
 // Api interface
 export default class Interface {
 	Auth = {
-		init() {},
+		async init() {},
 		async usernameExist(username) {},
 		async login(username, password) {},
 		async register(username, password) {},
