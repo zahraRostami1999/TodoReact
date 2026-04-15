@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import TaskItemButtons from "./TaskItemButtons"
 import ExpandLongText from '../../pages/home/components/ExpandLongText';
 import { useDispatch } from 'react-redux';
+import TaskItemButtons from "./TaskItemButtons"
 import { getDeleteButton, expandIcons } from './TaskButtons';
 
 function TaskItem({ task, onToggleDropdown, visibleDropDownIndex, activeButton }) {
+    const smtitleLengthLimit = 15;
     const titleLengthLimit = 90;
     const isTaskTextLong = task?.description?.length > titleLengthLimit;
     const [isExpand, setIsExpand] = useState(false);
@@ -14,7 +15,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex, activeButton }
 
     return (
         <li
-            className={`flex lg:w-11/12 w-full flex-row mx-auto justify-between my-4 p-3 rounded-xl bg-purple-50 shadow-lg hover:bg-purple-200 transition-all duration-300 ease-in-out transform hover:-translate-y-1`}>
+            className={`flex lg:w-11/12 w-full ${isExpand ? "flex-col" : "flex-row"} mx-auto justify-between my-4 lg:p-3 p-1.5 rounded-xl bg-purple-50 shadow-lg hover:bg-purple-200 transition-all duration-300 ease-in-out transform hover:-translate-y-1`}>
             <div className='flex items-start gap-1.5 w-[15%]'>
                 <div className='flex items-center' dir='rtl'>
                     <TaskItemButtons taskId={task.id} dropdown={() => onToggleDropdown(task.id)} />
@@ -37,7 +38,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex, activeButton }
                     </div>
                 )}
             </div>
-            <div className="flex items-center flex-grow w-[10%]">
+            <div className="flex items-center flex-grow">
                 <p
                     style={{
                         textDecoration: task.done ? "line-through" : "none",
