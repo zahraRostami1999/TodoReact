@@ -1,41 +1,53 @@
 import { useState, useEffect } from "react"
 import Api from "../../services/Api"
 import { Header, InputTasks, TasksList } from "../../components/PageTask/index"
+import { useDispatch } from "react-redux";
+import { set_tasks, append_tasks, add_task } from "../../redux/TaskSlice";
+import { generateTempId } from "../../components/PageTask/TempIdGenerator";
 
 function TodoPage() {
-	const [tasks_list, setTasks_list] = useState([])
-	const [tasks_should_change, setTasks_should_change] = useState(true)
-	console.log(tasks_list);
+	const [page, setPage] = useState(1)
+	const [total_pages, setTotal_pages] = useState()
+	const dispatch = useDispatch();
 
-	const addTask = async (task_index) => {
-		Api.Task.create(task_index)
-		setTasks_should_change(true)
+	const addTask = async (new_task) => {
+		const res = await Api.Task.create(new_task)
+		if (!res) return;
+		let temp_id = generateTempId();
+		let task_obj = { id: temp_id, description: new_task, done: false }
+		dispatch(add_task(task_obj))
 	}
 
 	useEffect(() => {
 		const getTasks = async () => {
-			let tasksList = await Api.Task.getAll(1)
-			if (!tasksList) return
-			setTasks_list(tasksList.content)
-			setTasks_should_change(false)
+			let response = await Api.Task.getAll(page)
+			if (!response) return
+			setTotal_pages(response["x-total-pages"])
+			if (page === 1) {
+				dispatch(set_tasks(response.content))
+			} else {
+				dispatch(append_tasks(response.content))
+			}
 		}
 		getTasks()
-	}, [tasks_should_change])
+	}, [page])
+
+	const loadMoreTasks = () => {
+		if (page < total_pages) setPage(prev => prev + 1)
+	}
 
 	return (
 		<>
-			<div className='w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-50 to-purple-400'>
+			<div className='w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600'>
 				<div className='flex flex-col gap-10 h-full p-5'>
-					{/* header */}
 					<Header />
-					{/* input */}
 					<div className="sticky top-2 z-10">
 						<InputTasks addTask={addTask} />
 					</div>
-					{/* list */}
 					<TasksList
-						initialTasks={tasks_list}
-						handleChange={() => setTasks_should_change(true)}
+						handleChange={() => { setPage(1) }}
+						hasMore={page < total_pages}
+						onLoadMore={loadMoreTasks}
 					/>
 				</div>
 			</div>

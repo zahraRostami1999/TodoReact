@@ -9,11 +9,11 @@ function PassToggler({ enable, onclick, ltr }) {
 		<button
 			type='button'
 			tabIndex={-1}
-			className={`text-3xl absolute text-neutral-500 ${ltr ? "right-3" : "left-3"} top-2`}
+			className={`text-3xl absolute text-neutral-500 ${ltr ? "right-3" : "left-3"} top-2.5`}
 			onClick={onclick}
 		>
 			{browserName !== "Edge" &&
-				(enable ? <FiEyeOff size={28} /> : <FiEye size={28} />)}
+				(enable ? <FiEyeOff size={22} /> : <FiEye size={22} />)}
 		</button>
 	)
 }
