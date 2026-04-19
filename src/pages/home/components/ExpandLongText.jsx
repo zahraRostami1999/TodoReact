@@ -4,7 +4,7 @@ function ExpandLongText({ max_char, text, is_expand, handleClickIsExpand }) {
     return (
         <div dir='rtl'>
             {is_expand ? (
-                <p className=""
+                <p className="mr-2"
                 onClick={() => handleClickIsExpand(is_expand)}>
                     {text}
                 </p>

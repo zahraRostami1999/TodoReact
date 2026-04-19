@@ -70,6 +70,6 @@ export default class Task {
 		const method = "DELETE"
 		const result = await this.#sendTaskRequest(ep, method)
 		if (result === null) return null
-		return result.body.task_id
+		return result.body.id
 	}
 }

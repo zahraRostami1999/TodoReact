@@ -48,6 +48,6 @@ export const getDeleteButton = (dispatch, taskId) => ({
 });
 
 export const expandIcons = {
-    expand: <FaPlus size={18} className="text-orange-600 pt-0.5"/>,
+    expand: <FaPlus size={18} className="text-orange-600"/>,
     collapse: <FaMinus size={18} />
 }

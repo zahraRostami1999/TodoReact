@@ -24,11 +24,7 @@ export const TaskSlice = createSlice({
             })
         },
         delete_Task: (state, action) => {
-            console.log("*");
-
             let taskId = action.payload;
-            console.log(taskId);
-
             let tasks_list = [...state.tasks];
             state.tasks = tasks_list.filter((task) => task.id !== taskId)
         },
