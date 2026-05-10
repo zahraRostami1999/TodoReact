@@ -45,7 +45,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                 )}
 
                 {visibleDropDownIndex === task.id && (
-                    <div className="absolute z-[100] sm:left-1 sm:top-9 lg:-left-16 lg:w-12 w-9 lg:h-12 h-9 lg:top-0 rounded-full shadow-xl bg-white border border-gray-200 flex flex-col space-y-1">
+                    <div className="absolute z-[100] sm:-left-5 sm:top-6 lg:-left-16 lg:w-12 w-9 lg:h-12 h-9 lg:top-0 rounded-full shadow-xl bg-white border border-gray-200 flex flex-col space-y-1">
                         <button
                             onClick={deleteBtn.onClick}
                             className="text-red-600 w-full h-full flex justify-center items-center rounded-full hover:bg-orange-100">
