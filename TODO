@@ -9,3 +9,4 @@ known issues:
     - password label transition (all ltr<->rtl transitions)
     - password toggler disapper when navigating with tab
     - title and logout are not symmetric (check the screenshot in root)
+- TODO_Z change favicon.ico
