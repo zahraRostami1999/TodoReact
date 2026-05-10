@@ -19,11 +19,11 @@ class AuthController extends Controller
 		}
 
 		// get id of this user and password
-		$ID = $uc->get_id($username, $password);
+		$id = $uc->get_id($username, $password);
 
 		// delete previous tokens
-		$this->model->delete(["user_id" => $ID]);
-		$this->set_tkn_and_return($ID);
+		$this->model->delete(["user_id" => $id]);
+		$this->set_tkn_and_return($id);
 	}
 
 	public function refresh()

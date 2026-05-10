@@ -59,7 +59,7 @@ class TaskController extends Controller
         }
 
         // check id validity
-        $this_task = $this->model->read(["ID", "prev_task_id"], ["ID" => $this->querystring["id"]]);
+        $this_task = $this->model->read(["id", "prev_task_id"], ["id" => $this->querystring["id"]]);
         if (empty($this_task)) {
             new Response(400, ["message" => ResponseMessage::$task["doesnt_exist"]]);
         }
@@ -69,19 +69,19 @@ class TaskController extends Controller
         if ($uc->get_last_task() === $this->querystring["id"]) {
             $uc->model->update(
                 ["last_task" => $this_task[0]["prev_task_id"]],
-                ["ID" => $GLOBALS["authenticated_user_id"]]
+                ["id" => $GLOBALS["authenticated_user_id"]]
             );
         }
 
         // edit task below this
         $this->model->update(
             ["prev_task_id" => $this_task[0]["prev_task_id"]],
-            ["prev_task_id" => $this_task[0]["ID"]]
+            ["prev_task_id" => $this_task[0]["id"]]
         );
 
         // delete this task
-        $this->model->delete(["ID" => $this_task[0]["ID"]]);
-        new Response(200, ["id" => $this_task[0]["ID"], "message" => ResponseMessage::$task["delete_success"]]);
+        $this->model->delete(["id" => $this_task[0]["id"]]);
+        new Response(200, ["id" => $this_task[0]["id"], "message" => ResponseMessage::$task["delete_success"]]);
     }
 
     public function update_task()
@@ -97,7 +97,7 @@ class TaskController extends Controller
         }
 
         // check if task exist
-        $this_task = $this->model->read(["ID", "done_at", "prev_task_id"], ["ID" => $this->querystring["id"]]);
+        $this_task = $this->model->read(["id", "done_at", "prev_task_id"], ["id" => $this->querystring["id"]]);
         if (empty($this_task)) {
             new Response(400, ["message" => ResponseMessage::$task["doesnt_exist"]]);
         }
@@ -108,9 +108,9 @@ class TaskController extends Controller
             $this->model->update(
                 ["done_at" => is_null($this_task["done_at"])
                     ? DatabaseUtilities::formated_time() : null],
-                ["ID" => $this_task["ID"]]
+                ["id" => $this_task["id"]]
             );
-            new Response(200, ["id" => $this_task["ID"]], default_message: true);
+            new Response(200, ["id" => $this_task["id"]], default_message: true);
         }
 
         // move (change priority)
@@ -123,7 +123,7 @@ class TaskController extends Controller
                 $this->move_down($this_task);
             }
 
-            new Response(200, ["id" => $this_task["ID"], "message" => ResponseMessage::$task["success_move"]]);
+            new Response(200, ["id" => $this_task["id"], "message" => ResponseMessage::$task["success_move"]]);
         }
 
         new Response(400, default_message: true);

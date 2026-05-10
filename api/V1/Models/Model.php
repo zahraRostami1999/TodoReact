@@ -27,7 +27,7 @@ abstract class Model
 
 	public function __get($name) {}
 
-	public function total_num(array $conds = ["1=1"], $count_this = "ID")
+	public function total_num(array $conds = ["1=1"], $count_this = "id")
 	{
 		return $this->db->select($this->table_name, "COUNT($count_this) as total_num", $conds);
 	}

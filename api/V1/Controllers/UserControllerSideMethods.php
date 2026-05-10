@@ -46,25 +46,25 @@ trait UserControllerSideMethods
 
 	public function get_id($username, $password)
 	{
-		$result = $this->model->read("ID", ["username" => $username, "password" => $password]);
+		$result = $this->model->read("id", ["username" => $username, "password" => $password]);
 
 		if (!$result) {
 			$response_body = ["message" => ResponseMessage::$auth["failed_login"]];
 			new Response(400, $response_body);
 		}
 
-		return $result[0]["ID"];
+		return $result[0]["id"];
 	}
 
 	public function get_last_task()
 	{
 		$user_id = $GLOBALS["authenticated_user_id"];
-		$records = $this->model->read("last_task", ["ID" => $user_id]);
+		$records = $this->model->read("last_task", ["id" => $user_id]);
 		return empty($records) ? [] : $records[0]["last_task"];
 	}
 	public function set_last_task($value)
 	{
 		$user_id = $GLOBALS["authenticated_user_id"];
-		return $this->model->update(["last_task" => $value], ["ID" => $user_id]);
+		return $this->model->update(["last_task" => $value], ["id" => $user_id]);
 	}
 }

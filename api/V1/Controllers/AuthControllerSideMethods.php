@@ -65,16 +65,16 @@ trait AuthControllerSideMethods
 		return [$refresh, $payload["sub"]];
 	}
 
-	private function gen_token_for_user($ID)
+	private function gen_token_for_user($id)
 	{
 		// generate tokens
-		$access_token = $this->createAccessToken($ID);
-		$refresh_token = $this->createRefreshToken($ID);
+		$access_token = $this->createAccessToken($id);
+		$refresh_token = $this->createRefreshToken($id);
 
 		// save refresh token
 		$record = [
 			"id" => DBUtil::ulid(),
-			"user_id" => $ID,
+			"user_id" => $id,
 			"value" => DBUtil::hash($refresh_token),
 			"expiration" => DBUtil::formated_time(CommonConstants::get_refresh_exp()),
 		];
