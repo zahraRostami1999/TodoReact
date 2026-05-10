@@ -8,6 +8,7 @@
 // 	exit;
 // }
 
+define("API_URI_BASE", "api/v1/");
 define("DEBUG", false);
 
 require_once("V1/Core/Autoloader.php");
