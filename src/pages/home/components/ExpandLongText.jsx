@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-function ExpandLongText({ max_char, text, is_expand, handleClickIsExpand }) {
+function ExpandLongText({ max_char, text, is_expand, dir, handleClickIsExpand }) {
     return (
-        <div dir='rtl'>
+        <div dir={dir}>
             {is_expand ? (
                 <p className="mr-2"
-                onClick={() => handleClickIsExpand(is_expand)}>
+                    onClick={() => handleClickIsExpand(is_expand)}>
                     {text}
                 </p>
             ) : (

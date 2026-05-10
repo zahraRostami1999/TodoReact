@@ -7,11 +7,12 @@ import { getDeleteButton, expandIcons } from './TaskButtons';
 function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
     const [titleLengthLimit, setTitleLengthLimit] = useState(85);
     const [isExpand, setIsExpand] = useState(false);
+    const ltr = task.description && !/^[\u0600-\u06FF]/.test(task.description.trim());
 
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 640) {
-                setTitleLengthLimit(16);
+                setTitleLengthLimit(25);
             } else if (window.innerWidth < 1024) {
                 setTitleLengthLimit(40);
             } else {
@@ -31,7 +32,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
 
     return (
         <li
-            className={`flex lg:w-11/12 w-full ${isExpand ? "flex-col" : "flex-row"} mx-auto justify-between my-4 lg:p-3 p-1.5 rounded-2xl bg-purple-50 shadow-lg hover:bg-purple-200 transition-all duration-300 ease-in-out transform hover:-translate-y-1`}>
+            className={`flex lg:w-11/12 w-full ${isExpand ? "flex-col" : "flex-row sm:flex-col"} mx-auto justify-between my-4 lg:p-3 p-1.5 rounded-2xl bg-purple-50 shadow-lg hover:bg-purple-200 transition-all duration-300 ease-in-out transform hover:-translate-y-1`}>
             <div className='flex items-center gap-1.5 lg:w-[17%] sm:w-[50%]'>
                 <div className='flex items-center' dir='rtl'>
                     <TaskItemButtons taskId={task.id} dropdown={() => onToggleDropdown(task.id)} />
@@ -54,11 +55,12 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                     </div>
                 )}
             </div>
-            <div className={`flex items-center flex-grow w-full mr-2 
+            <div className={`flex items-center flex-grow w-full mr-2 sm:px-3
             ${isTaskTextLong ?
                     isExpand ? "xl:ml-0 lg:ml-0"
                         : "xl:ml-5"
-                    : "xl:ml-5 lg:ml-5"}`}>
+                    : "xl:ml-5 lg:ml-5"}`}
+                dir={ltr ? "ltr" : "rtl"}>
                 <p
                     style={{
                         textDecoration: task.done ? "line-through" : "none",
@@ -67,7 +69,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                         wordBreak: 'break-word',
                         overflowWrap: 'break-word',
                     }}
-                    className=" my-2 text-neutral-600 text-lg text-right font-medium whitespace-normal flex-grow"
+                    className=" my-2 text-neutral-600 text-lg font-medium whitespace-normal flex-grow"
                 >
                     {isTaskTextLong
                         ? (
@@ -76,6 +78,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                                 text={task.description}
                                 is_expand={isExpand}
                                 handleClickIsExpand={(expand) => setIsExpand(!expand)}
+                                dir={ltr ? "ltr" : "rtl"}
                             />
                         )
                         : task.description
