@@ -8,9 +8,6 @@
 # testing
 /coverage
 
-# production
-/build
-
 # misc
 .DS_Store
 .env.local
@@ -21,3 +18,7 @@
 npm-debug.log*
 
 /Charts/*.bkp
+/build
+/.vscode
+api/V1/Core/Config/DatabaseConfig.php
+api/V1/Core/Config/Keys.php
