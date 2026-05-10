@@ -1,4 +1,11 @@
-small components?
-password label transition (all ltr<->rtl transitions)
-password toggler disapper when navigating with tab
-title and logout are not symmetric (check the screenshot in root)
+
+known issues:
+- TODO_S XSS
+- TODO_S ip throttling
+- TODO_S user can only login on a single device
+- TODO_Z button disabling after connection error at username checking page
+- TODO_Z Are these done?
+    - small components?
+    - password label transition (all ltr<->rtl transitions)
+    - password toggler disapper when navigating with tab
+    - title and logout are not symmetric (check the screenshot in root)
