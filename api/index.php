@@ -8,8 +8,7 @@
 // 	exit;
 // }
 
-define("API_URI_BASE", "/todo/Backend/Api/v1/");
-define("DEPLOYED", false);
+define("DEBUG", false);
 
 require_once("V1/Core/Autoloader.php");
 require("VersionForwarder.php");

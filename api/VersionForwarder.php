@@ -12,6 +12,12 @@ function extract_version()
 	$version_valid = isset($matches["version"]);
 	$version_exist = $version_valid && file_exists(strtoupper($matches["version"]) . "/index.php");
 
+	$GLOBALS['debug_data']= [];
+	$GLOBALS['debug_data']['version_valid'] = $version_valid;
+	$GLOBALS['debug_data']['version_exist'] = $version_exist;
+	$GLOBALS['debug_data']['uri'] = $uri;
+	$GLOBALS['debug_data']['matches'] = $matches;
+
 	// die if version is not set correctly
 	if ($version_valid && $version_exist) {
 		unset($uri, $pattern, $version_valid, $version_exist);

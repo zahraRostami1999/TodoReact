@@ -25,9 +25,9 @@ class CommonConstants
 	public const JWT_ALGO = "sha256";
 	public static function get_access_exp()
 	{
-		return DEPLOYED
-			? CommonUtilities::to_seconds(min: 10)
-			: CommonUtilities::to_seconds(day: 1);
+		return DEBUG
+			? CommonUtilities::to_seconds(day: 1)
+			: CommonUtilities::to_seconds(min: 10);
 	}
 	public static function get_refresh_exp()
 	{
