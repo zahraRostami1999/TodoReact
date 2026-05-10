@@ -10,6 +10,5 @@ known issues:
     - password toggler disapper when navigating with tab
     - title and logout are not symmetric (check the screenshot in root)
 - TODO_Z change favicon.ico
-
-TODO_Z mobile: change delete icon position
-TODO_Z mobile: handle long text
+- TODO_Z mobile: change delete icon position
+- TODO_Z mobile: handle long text
