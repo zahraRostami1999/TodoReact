@@ -143,7 +143,7 @@ class TaskController extends Controller
         $uc = new UserController();
 
         $record = [
-            "ID" => DBUtil::ulid(),
+            "id" => DBUtil::ulid(),
             "user_id" => $GLOBALS["authenticated_user_id"],
             "description" => $this->req_body["description"],
             "prev_task_id" => $uc->get_last_task(),
