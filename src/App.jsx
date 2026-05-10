@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import LoginPage from "./pages/login/LoginPage.jsx"
 import HomePage from "./pages/home/HomePage.jsx"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom" // Keep these imports
-import Api from "./services/Api.js"
+import Api from "./services/api/api.js"
 
 export default function App() {
 	document.title = "HISTX ToDo List"

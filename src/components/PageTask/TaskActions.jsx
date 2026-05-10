@@ -1,4 +1,4 @@
-import Api from "../../services/Api";
+import Api from "../../services/api/api.js";
 import { done_task, delete_Task, move_up_task, move_down_task } from "../../redux/TaskSlice";
 
 export const handleDoneTask = async (dispatch, id) => {

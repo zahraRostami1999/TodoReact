@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import ErrMsg from "../../../config/errorMessages"
 import Const from "../../../config/constants"
-import Api from "../../../services/Api"
+import Api from "../../../services/api/api.js"
 import {
 	FloatInput,
 	LoginButton,

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import Api from "../../services/Api"
+import Api from "../../services/api/api.js"
 import { IoIosLogOut } from "react-icons/io"
 
 const Header = () => {

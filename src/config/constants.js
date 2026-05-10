@@ -4,6 +4,7 @@ export default class Const {
 		TOKENS_KEY: "myAuthTokens",
 		TIMEOUT_ID_KEY: "myAuthRefreshInterval",
 		REFRESH_TRESHOLD: 1000 * 30, // 30 seconds before it get expired
+		API_TIMEOUT: 1000 * 8,
 	}
 
 	static UI = {

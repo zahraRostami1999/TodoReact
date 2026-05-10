@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Const from "../../../config/constants"
 import ErrMsg from "../../../config/errorMessages"
-import Api from "../../../services/Api"
+import Api from "../../../services/api/api.js"
 import {
 	FloatInput,
 	LoginButton,
