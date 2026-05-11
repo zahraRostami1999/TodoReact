@@ -7,5 +7,4 @@ known issues:
   login button disabled when there is even one error
 - TODO_Z Are these done?
     - password toggler disapper when navigating with tab
-    - title and logout are not symmetric (check the screenshot in root)
 - TODO_Z change favicon.ico
