@@ -28,7 +28,8 @@ export default async function sendRequest(ep, method, body = {}, headers = {}) {
 		clearTimeout(timeoutId);
 	} catch (error) {
 		clearTimeout(timeoutId);
-		if (error.name === 'AbortError') return null;
+		if (error.name === 'AbortError') return null; // Timeout error
+		return null; // Network error or other fetch errors
 	}
 
 	const result = { status: response.status, body: {} };
@@ -37,7 +38,17 @@ export default async function sendRequest(ep, method, body = {}, headers = {}) {
 	result.ok = typeof response.ok === 'boolean' ? response.ok : result.body.ok;
 
 	// decode body
-	const temp_body = await response.json();
+	let temp_body;
+	try {
+		temp_body = await response.json();
+	} catch (error) {
+		// Handle cases where response is not JSON or is empty
+		console.error("Failed to parse JSON response:", error);
+		// Decide how to handle this - perhaps return an error object or null
+		// For now, let's assume an empty body if parsing fails
+		temp_body = {};
+	}
+
 	if (Array.isArray(temp_body)) {
 		result.body = temp_body;
 	} else {
@@ -49,8 +60,9 @@ export default async function sendRequest(ep, method, body = {}, headers = {}) {
 
 	// decode headers
 	const tempHeaders = {};
-	for (const header of response.headers.entries())
-		headers[header[0]] = header[1];
+	for (const header of response.headers.entries()) {
+		tempHeaders[header[0]] = header[1];
+	}
 	result.headers = tempHeaders;
 
 	// return result

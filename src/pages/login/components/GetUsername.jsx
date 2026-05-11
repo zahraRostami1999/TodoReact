@@ -42,6 +42,7 @@ export default function GetUsername({ get, set }) {
 
 		set("loading", true)
 		let userExist = await Api.Auth.usernameExist(get("userInput").username)
+		
 		set("loading", false)
 
 		if (userExist === null) {
