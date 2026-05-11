@@ -69,7 +69,7 @@ export default async function sendRequest(ep, method, body = {}, headers = {}) {
 		clearTimeout(timeoutId)
 	} catch (error) {
 		clearTimeout(timeoutId)
-		if (error.name === 'AbortError') return null // Timeout error
+		if (error.name === 'AbortError') return { ok: null } // Timeout error
 	}
 
 	return await prepareOutput(response)

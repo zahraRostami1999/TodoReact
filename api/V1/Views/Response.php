@@ -4,6 +4,19 @@ namespace App\Views;
 
 use App\Core\Config\ResponseMessage;
 
+function scapeHtml(array $input)
+{
+	foreach ($input as $k => $v) {
+		$input[$k] = match (gettype($v)) {
+			'array' => scapeHtml($v),
+			'integer' => (int)htmlentities($v),
+			default => htmlentities($v)
+		};
+	}
+
+	return $input;
+}
+
 class Response
 {
 	public function __construct(int $status_code, ?array $body = null, bool $default_message = false)
@@ -26,7 +39,7 @@ class Response
 		}
 
 		// send response
-		echo json_encode($response_body);
+		echo json_encode(scapeHtml($response_body));
 
 		// stop script
 		exit;
