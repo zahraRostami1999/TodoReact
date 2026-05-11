@@ -3,7 +3,7 @@ export default function ErrorContainer({ text }) {
 		<div className='h-6'>
 			<p
 				dir='rtl'
-				className='text-sm text-right pt-1 px-1 text-red-500 font-semibold'
+				className='lg:text-[15px] sm:text-[13px] text-right pt-1 px-1 text-red-500 font-semibold'
 			>
 				{text}
 			</p>

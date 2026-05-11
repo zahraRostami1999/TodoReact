@@ -69,7 +69,7 @@ export default function GetPassword({ get, set }) {
 	}
 
 	return (
-		<form onSubmit={(e) => handleEnter(e)} className='flex flex-col gap-5'>
+		<form onSubmit={(e) => handleEnter(e)} className='flex flex-col lg:gap-7 sm:gap-10'>
 			<div className='flex flex-col gap-5'>
 				<WelcomeText
 					username={get("userInput").username}
