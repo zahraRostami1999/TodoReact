@@ -12,7 +12,7 @@ class CommonConstants
 
 	// network related constants
 	public const MAX_REQUEST_WINDOWS = 60;
-	public const MAX_REQUEST_RATE = 60;
+	public const MAX_REQUEST_RATE = 200;
 
 	// user related constants
 	public const FORBID_USER_CHARS = " ,/\\=+'\"[]{}*%@";
