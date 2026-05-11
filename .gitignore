@@ -22,3 +22,4 @@ npm-debug.log*
 /.vscode
 api/V1/Core/Config/DatabaseConfig.php
 api/V1/Core/Config/Keys.php
+api/V1/Middlewares/ipViews.txt

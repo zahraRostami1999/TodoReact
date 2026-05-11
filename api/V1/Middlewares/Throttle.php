@@ -16,7 +16,7 @@ class Throttle
         // ----- FINISH compatibility params
         private int $limit = CommonConstants::MAX_REQUEST_RATE,
         private int $throttleWindow = CommonConstants::MAX_REQUEST_WINDOWS,
-        private string $file_path = '',
+        private string $file_path = __DIR__ . '/' . 'ipViews.txt',
         private array $allIps = [],
     ) {}
 
@@ -50,8 +50,9 @@ class Throttle
             $windowsBorder = time() - $this->throttleWindow;
 
             if ($timestamp < $windowsBorder) {
-                $recentViews = array_slice($this->allIps, 0, $key);
-                $this->allIps = $recentViews;
+                $recentViews = array_slice($this->allIps[$ip], 0, $key);
+                $this->allIps[$ip] = $recentViews;
+                break;
             }
         }
     }
