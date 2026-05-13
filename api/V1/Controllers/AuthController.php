@@ -22,7 +22,6 @@ class AuthController extends Controller
 		$id = $uc->get_id($username, $password);
 
 		// delete previous tokens
-		$this->model->delete(["user_id" => $id]);
 		$this->set_tkn_and_return($id);
 	}
 
