@@ -7,3 +7,4 @@ TODO_Z listen to 401 event and trigger redirection to /login
   document.body.addEventListener('unauthorized', function(event) {})
 
 TODO_Z remember to build and upload /build directero to host after you are finished
+TODO_Z comment CORS settings after you've done
