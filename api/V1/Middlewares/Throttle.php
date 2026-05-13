@@ -24,13 +24,12 @@ class Throttle
     {
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        $this->allIps = $this->getFile();
+        $this->loadViews();
         $this->addView($ip);
         $this->removeOldViews($ip);
-        $limitReached = $this->checkLimit($ip);
-        $this->setFile($this->allIps);
+        $this->saveViews();
 
-        if ($limitReached) {
+        if ($this->checkLimit($ip)) {
             return new Response(429);
         }
 
@@ -62,14 +61,14 @@ class Throttle
         return count($this->allIps[$ip]) > $this->limit;
     }
 
-    private function getFile(): array
+    private function loadViews(): void
     {
         $data = unserialize(file_get_contents($this->file_path));
-        return is_array($data) ? $data : [];
+        $this->allIps = is_array($data) ? $data : [];
     }
 
-    private function setFile(array $data): void
+    private function saveViews(): void
     {
-        file_put_contents($this->file_path, serialize($data));
+        file_put_contents($this->file_path, serialize($this->allIps));
     }
 }
