@@ -9,28 +9,32 @@ class Throttle
 {
     public function __construct(
         // ----- BEGIN compatibility params
-        private $custom_querystring,
-        private $querystring,
-        private $req_headers,
-        private $req_body,
+        private $custom_querystring = '',
+        private $querystring = '',
+        private $req_headers = '',
+        private $req_body = '',
         // ----- FINISH compatibility params
         private int $limit = CommonConstants::MAX_REQUEST_RATE,
         private int $throttleWindow = CommonConstants::MAX_REQUEST_WINDOWS,
         private string $file_path = __DIR__ . '/' . 'ipViews.txt',
         private array $allIps = [],
-    ) {}
+    ) {
+        $this->loadViews();
+    }
+
+    public function __destruct()
+    {
+        $this->saveViews();
+    }
 
     public function handle(): ?Response
     {
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        $this->allIps = $this->getFile();
         $this->addView($ip);
-        $this->removeOldViews($ip);
-        $limitReached = $this->checkLimit($ip);
-        $this->setFile($this->allIps);
+        $this->cleanIpViews($ip);
 
-        if ($limitReached) {
+        if ($this->checkLimit($ip)) {
             return new Response(429);
         }
 
@@ -44,7 +48,14 @@ class Throttle
             $this->allIps[$ip] = [time()];
     }
 
-    private function removeOldViews(string $ip): void
+    public function cleanIpsViews(): void
+    {
+        foreach ($this->allIps as $ip => $views) {
+            $this->cleanIpViews($ip);
+        }
+    }
+
+    private function cleanIpViews(string $ip): void
     {
         foreach ($this->allIps[$ip] as $key => $timestamp) {
             $windowsBorder = time() - $this->throttleWindow;
@@ -62,14 +73,14 @@ class Throttle
         return count($this->allIps[$ip]) > $this->limit;
     }
 
-    private function getFile(): array
+    private function loadViews(): void
     {
         $data = unserialize(file_get_contents($this->file_path));
-        return is_array($data) ? $data : [];
+        $this->allIps = is_array($data) ? $data : [];
     }
 
-    private function setFile(array $data): void
+    private function saveViews(): void
     {
-        file_put_contents($this->file_path, serialize($data));
+        file_put_contents($this->file_path, serialize($this->allIps));
     }
 }
