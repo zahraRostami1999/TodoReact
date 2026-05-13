@@ -38,7 +38,7 @@ trait SingleSubqueryGenerator
 	{
 		if (is_numeric($key) && is_array($value)) {
 			$cond_clause = $this->gen_wheres_clause($data, $value, $where_counter);
-		} elseif (is_numeric($key) && is_string($value)) { // and, or directive && cusotm clause
+		} elseif (is_numeric($key) && is_string($value)) { // and, or directive && custom clause
 			$value = strtolower(trim($value));
 			$insert_or = $value === "or";
 			if ($value === "or" || $value === "and")
