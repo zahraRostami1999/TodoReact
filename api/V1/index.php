@@ -7,5 +7,3 @@ use App\Core\Config\CommonConstants;
 
 date_default_timezone_set(CommonConstants::TIMEZONE);
 require_once(ABSPATH . "Router/Route.php");
-
-

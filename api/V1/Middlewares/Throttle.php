@@ -63,6 +63,7 @@ class Throttle
             if ($timestamp < $windowsBorder) {
                 $recentViews = array_slice($this->allIps[$ip], 0, $key);
                 $this->allIps[$ip] = $recentViews;
+                if (empty($this->allIps[$ip])) unset($this->allIps[$ip]);
                 break;
             }
         }
