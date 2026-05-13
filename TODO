@@ -1,5 +1,9 @@
 TODO_Z buttons and notes active/deactive style issue on mobile 
-TODO_S create 401 and 429 and timeout events
-TODO_Z listen to 401 event and trigger redirection to /login
-TODO_Z listen to 429 event and trigger try again after 60 seconds notif
 TODO_Z listen to timeout event and trigger check your connection and ty again event
+  document.body.addEventListener('timeout', function(event) {})
+TODO_Z listen to 429 event and trigger try again after 60 seconds notif
+  document.body.addEventListener('tooManyRequests', function(event) {})
+TODO_Z listen to 401 event and trigger redirection to /login
+  document.body.addEventListener('unauthorized', function(event) {})
+
+TODO_Z remember to build and upload /build directero to host after you are finished
