@@ -23,6 +23,11 @@ export default class Msg {
 	}
 
 	static WELLCOME = {
-		msg: "خوش اومدی 🙂"
+		MSG: "خوش اومدی 🙂"
+	}
+
+	static TASKINPUT = {
+		ERR: "مشکلی پیش اومده. بعدا دوباره امتحان کن",
+		ADD: "تسک جدید داری"
 	}
 }
