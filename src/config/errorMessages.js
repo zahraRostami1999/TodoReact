@@ -21,4 +21,8 @@ export default class ErrMsg {
 		FORBID: (char) =>
 			`وای! نمیتونی از کاراکتر ${char === " " ? "فاصله" : char} استفاده کنی`,
 	}
+
+	static WELLCOME = {
+		msg: "خوش اومدی 🙂"
+	}
 }
