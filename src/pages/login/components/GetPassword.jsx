@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import ErrMsg from "../../../config/errorMessages"
+import Msg from "../../../config/messages.js"
 import Const from "../../../config/constants"
 import Api from "../../../services/api/api.js"
 import {
@@ -23,7 +23,7 @@ export default function GetPassword({ get, set }) {
 		{
 			const otherInput = type === "password" ? "confirmPassword" : "password"
 			if (thisPass !== get("userInput")[otherInput])
-				errorToSet = ErrMsg.PASS.VERIFY
+				errorToSet = Msg.PASS.VERIFY
 		}
 
 		// check if only password changed
@@ -31,13 +31,13 @@ export default function GetPassword({ get, set }) {
 			for (let i = 0; i < Const.PASS.FORBID_CHARS.length; i++) {
 				const char = Const.PASS.FORBID_CHARS.slice(i, i + 1)
 				if (thisPass.indexOf(char) >= 0) {
-					errorToSet = ErrMsg.COMMON.FORBID(char)
+					errorToSet = Msg.COMMON.FORBID(char)
 				}
 			}
 			if (!thisPass) {
-				errorToSet = ErrMsg.PASS.NO
+				errorToSet = Msg.PASS.NO
 			} else if (thisPass.length < Const.PASS.MIN) {
-				errorToSet = ErrMsg.PASS.SHORT(thisPass.length)
+				errorToSet = Msg.PASS.SHORT(thisPass.length)
 			} else if (!errorToSet) {
 				errorToSet = ""
 			}
@@ -60,7 +60,7 @@ export default function GetPassword({ get, set }) {
 
 		if (response === null) {
 			// error on fetching
-			set("error", ErrMsg.COMMON.CNN)
+			set("error", Msg.COMMON.CNN)
 		} else if (!response.ok) {
 			set("error", response.body.message)
 		} else {

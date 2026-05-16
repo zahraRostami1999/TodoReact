@@ -3,7 +3,7 @@ import Api from "../../services/api/api.js"
 import { Header, InputTasks, TasksList } from "../../components/PageTask/index"
 import { useDispatch } from "react-redux";
 import { set_tasks, append_tasks, add_task } from "../../redux/TaskSlice";
-import ErrMsg from "../../config/errorMessages.js";
+import Msg from "../../config/messages.js";
 import { toast } from "react-toastify";
 
 function TodoPage() {
@@ -46,11 +46,14 @@ function TodoPage() {
 		setPage(prev => prev + 1);
 	};
 
+	useEffect(() => {
+		toast.success(Msg.WELLCOME.msg)
+	}, [])
+
 	return (
 		<>
 			<div className='w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600'>
 				<div className='flex flex-col gap-10 h-full p-5'>
-					{toast.success(ErrMsg.WELLCOME.msg)}
 					<Header />
 					<div className="sticky top-2 z-10">
 						<InputTasks addTask={addTask} />

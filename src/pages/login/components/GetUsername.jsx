@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import Const from "../../../config/constants"
-import ErrMsg from "../../../config/errorMessages"
+import Msg from "../../../config/messages.js"
 import Api from "../../../services/api/api.js"
 import {
 	FloatInput,
@@ -9,7 +9,7 @@ import {
 } from "../../../components/PageLogin/index"
 
 export default function GetUsername({ get, set }) {
-	useEffect(() => set("error", ErrMsg.USER.NO), [])
+	useEffect(() => set("error", Msg.USER.NO), [])
 
 	const handleChange = (e) => {
 		e.preventDefault()
@@ -19,16 +19,16 @@ export default function GetUsername({ get, set }) {
 		for (let i = 0; i < Const.USER.FORBID_CHARS.length; i++) {
 			const char = Const.USER.FORBID_CHARS.slice(i, i + 1)
 			if (username.indexOf(char) >= 0) {
-				set("error", ErrMsg.COMMON.FORBID(char))
+				set("error", Msg.COMMON.FORBID(char))
 				haveForbidChar = true
 			}
 		}
 		if (!username) {
-			set("error", ErrMsg.USER.NO)
+			set("error", Msg.USER.NO)
 		} else if (username.length < Const.USER.MIN) {
-			set("error", ErrMsg.USER.SHORT(username.length))
+			set("error", Msg.USER.SHORT(username.length))
 		} else if (username.length > Const.USER.MAX) {
-			set("error", ErrMsg.USER.LONG(username.length))
+			set("error", Msg.USER.LONG(username.length))
 		} else if (!haveForbidChar) {
 			set("error", "")
 		}
@@ -47,7 +47,7 @@ export default function GetUsername({ get, set }) {
 
 		if (userExist === null) {
 			// error on fetching
-			set("error", ErrMsg.COMMON.CNN)
+			set("error", Msg.COMMON.CNN)
 		} else {
 			set("haveAccount", userExist.body.user_exists)
 			set("step", 2)

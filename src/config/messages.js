@@ -1,6 +1,6 @@
 import Const from "./constants.js"
 
-export default class ErrMsg {
+export default class Msg {
 	static PASS = {
 		NO: "رمز عبورت کو پس؟ بدون اون که نمی‌شه وارد شد",
 		VERIFY: "تکرار پسورد و پسوردت با هم فرق داره. دقت کن",
