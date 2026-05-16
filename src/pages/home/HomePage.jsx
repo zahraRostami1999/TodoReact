@@ -14,10 +14,14 @@ function TodoPage() {
 
 	const addTask = async (new_task) => {
 		const res = await Api.Task.create(new_task)
-		if (!res) return;
+		if (!res) {
+			toast.error(Msg.TASKINPUT.ERR)
+			return
+		};
 		let task_id = res;
 		let task_obj = { id: task_id, description: new_task, done: false }
 		dispatch(add_task(task_obj))
+		toast.success(Msg.TASKINPUT.ADD)
 	}
 
 	useEffect(() => {
@@ -47,7 +51,7 @@ function TodoPage() {
 	};
 
 	useEffect(() => {
-		toast.success(Msg.WELLCOME.msg)
+		toast.success(Msg.WELLCOME.MSG)
 	}, [])
 
 	return (
