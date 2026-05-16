@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import LoginPage from "./pages/login/LoginPage.jsx"
 import HomePage from "./pages/home/HomePage.jsx"
+import NotificationProvider from "./components/notification/NotificationProvider.jsx"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom" // Keep these imports
 import Api from "./services/api/api.js"
 
@@ -18,22 +19,23 @@ export default function App() {
 	const navigate = useNavigate() // Hook for navigation
 	const location = useLocation() // Hook to get current location
 	const pathname = location.pathname;
-  
-	// run everytime path changes
-	useEffect(() => {
-		// send to home page if loged in user tried to access login page
-		if (Api.Auth.isLogedIn() && pathname === "/login") {
-			navigate("/")
-		}
 
-		// send to login page if user is not loged in and not already on login page
-		if (!Api.Auth.isLogedIn() && pathname !== "/login") {
-			navigate("/login")
-		}
-	}, [navigate, pathname]) // Dependencies for useEffect
+	// // run everytime path changes
+	// useEffect(() => {
+	// 	// send to home page if loged in user tried to access login page
+	// 	if (Api.Auth.isLogedIn() && pathname === "/login") {
+	// 		navigate("/")
+	// 	}
+
+	// 	// send to login page if user is not loged in and not already on login page
+	// 	if (!Api.Auth.isLogedIn() && pathname !== "/login") {
+	// 		navigate("/login")
+	// 	}
+	// }, [navigate, pathname]) // Dependencies for useEffect
 
 	return (
 		<div className='App min-h-screen'>
+			<NotificationProvider />
 			<Routes>
 				<Route path='/login' element={<LoginPage />} />
 				<Route path='/' element={<HomePage />} />
