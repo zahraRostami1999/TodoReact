@@ -122,6 +122,7 @@ export async function register(username, password) {
 }
 
 export async function logout() {
+	deleteTokens();
 	if (!isLogedIn() || !canRefresh()) return;
 
 	const ep = 'auth/logout';
@@ -134,7 +135,6 @@ export async function logout() {
 	if (!result.ok) return result; // error
 
 	stopRefresh();
-	deleteTokens();
 
 	return result; // tokens
 }

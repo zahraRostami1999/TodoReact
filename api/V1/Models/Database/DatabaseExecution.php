@@ -57,7 +57,7 @@ trait DatabaseExecution
 		preg_match("/Sent SQL: \[\d+\]\s(?<sent_sql>.*)/", $sql, $matches);
 
 		FileUtilities::log($err_mssg, "db_log");
-		FileUtilities::log("Sent SQL for above error: {$matches["sent_sql"]}", "db_log");
+		FileUtilities::log("Sent SQL for above error: {$matches['sent_sql']}", "db_log");
 
 		return $err[0];
 	}

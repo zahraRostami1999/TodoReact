@@ -58,6 +58,10 @@ async function prepareOutput(response) {
 	return result
 }
 
+const timeout = new CustomEvent('timeout', {})
+const tooManyRequests = new CustomEvent('tooManyRequests', {})
+const unauthorized = new CustomEvent('unauthorized', {})
+
 export default async function sendRequest(ep, method, body = {}, headers = {}) {
 	const { endpoint, options } = prepareInput(ep, method, body, headers)
 	const { timeoutId, signal } = initiateTimeout()
@@ -69,8 +73,20 @@ export default async function sendRequest(ep, method, body = {}, headers = {}) {
 		clearTimeout(timeoutId)
 	} catch (error) {
 		clearTimeout(timeoutId)
-		if (error.name === 'AbortError') return { ok: null } // Timeout error
+		if (error.name === 'AbortError') {
+			// Timeout error
+			document.body.dispatchEvent(timeout)
+			return { ok: null }
+		}
 	}
 
-	return await prepareOutput(response)
+	const result = await prepareOutput(response)
+
+	if (result.status === 401) {
+		document.body.dispatchEvent(unauthorized)
+	} else if (result.status === 429) {
+		document.body.dispatchEvent(tooManyRequests)
+	}
+
+	return result
 }

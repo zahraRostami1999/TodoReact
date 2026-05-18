@@ -1,12 +1,12 @@
 <?php
-// header("Access-Control-Allow-Origin: *");
-// header("Access-Control-Allow-Methods: *");
-// header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Headers: *");
 
-// if (strtolower($_SERVER['REQUEST_METHOD']) === 'options') {
-// 	http_response_code(204);
-// 	exit;
-// }
+if (strtolower($_SERVER['REQUEST_METHOD']) === 'options') {
+	http_response_code(204);
+	exit;
+}
 
 define("API_URI_BASE", "api/v1/");
 define("DEBUG", false);
