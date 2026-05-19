@@ -45,10 +45,7 @@ export default function GetUsername({ get, set }) {
 		
 		set("loading", false)
 
-		if (userExist === null) {
-			// error on fetching
-			set("error", Msg.COMMON.CNN)
-		} else {
+		if (userExist.ok !== null) {
 			set("haveAccount", userExist.body.user_exists)
 			set("step", 2)
 		}

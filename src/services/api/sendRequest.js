@@ -73,11 +73,8 @@ export default async function sendRequest(ep, method, body = {}, headers = {}) {
 		clearTimeout(timeoutId)
 	} catch (error) {
 		clearTimeout(timeoutId)
-		if (error.name === 'AbortError') {
-			// Timeout error
-			document.body.dispatchEvent(timeout)
-			return { ok: null }
-		}
+		document.body.dispatchEvent(timeout)
+		return { ok: null }
 	}
 
 	const result = await prepareOutput(response)
