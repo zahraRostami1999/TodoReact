@@ -16,20 +16,6 @@ export default function App() {
 		// loged out: delete old tokens
 		const init = async () => await Api.Auth.init()
 		init()
-
-		document.body.addEventListener("timeout", (e) => {
-			toast.error(Msg.COMMON.CNN)
-		})
-
-		document.body.addEventListener("tooManyRequests", (e) => {
-			toast.error(Msg.COMMON.TOO_MANY)
-		})
-
-		document.body.addEventListener("unauthorized", (e) => {
-			toast.error(Msg.COMMON.UNAUTH)
-			Api.Auth.logout()
-			setTimeout(() => navigate("/login"), 2000)
-		})
 	}, [])
 
 	const navigate = useNavigate() // Hook for navigation
@@ -48,21 +34,22 @@ export default function App() {
 			navigate("/login")
 		}
 	}, [navigate, pathname]) // Dependencies for useEffect
-
+	
 	useEffect(() => {
 		const handleTimeOut = () => {
-			toast.error(Msg.COMMON.TIMEOUT);
+			toast.error(Msg.COMMON.CNN);
 		}
-
+		
 		const handleTooManyRequests = () => {
 			toast.error(Msg.COMMON.TOOMANYREQ);
 		}
-
+		
 		const handleUnauthorized = () => {
 			toast.error(Msg.COMMON.UNAUTHORIZED);
-			navigate("/login")
+			Api.Auth.logout()
+			setTimeout(() => navigate("/login"), 2000)
 		}
-
+		
 		document.body.addEventListener('timeout', handleTimeOut);
 		document.body.addEventListener('tooManyRequests', handleTooManyRequests);
 		document.body.addEventListener('unauthorized', handleUnauthorized);
