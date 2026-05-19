@@ -3,7 +3,9 @@ import LoginPage from "./pages/login/LoginPage.jsx"
 import HomePage from "./pages/home/HomePage.jsx"
 import NotificationProvider from "./components/notification/NotificationProvider.jsx"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom" // Keep these imports
-import Api from "./services/api/api.js"
+import Api from "./services/api/api.js";
+import { toast } from "react-toastify";
+import Msg from "./config/messages.js"
 
 export default function App() {
 	document.title = "HISTX ToDo List"
@@ -32,6 +34,31 @@ export default function App() {
 			navigate("/login")
 		}
 	}, [navigate, pathname]) // Dependencies for useEffect
+
+	useEffect(() => {
+		const handleTimeOut = () => {
+			toast.error(Msg.COMMON.TIMEOUT);
+		}
+
+		const handleTooManyRequests = () => {
+			toast.error(Msg.COMMON.TOOMANYREQ);
+		}
+
+		const handleUnauthorized = () => {
+			toast.error(Msg.COMMON.UNAUTHORIZED);
+			navigate("/login")
+		}
+
+		document.body.addEventListener('timeout', handleTimeOut);
+		document.body.addEventListener('tooManyRequests', handleTooManyRequests);
+		document.body.addEventListener('unauthorized', handleUnauthorized);
+
+		return () => {
+			document.body.removeEventListener("timeout", handleTimeOut)
+			document.body.removeEventListener("tooManyRequests", handleTooManyRequests)
+			document.body.removeEventListener("unauthorized", handleUnauthorized)
+		}
+	}, [])
 
 	return (
 		<div className='App min-h-screen'>
