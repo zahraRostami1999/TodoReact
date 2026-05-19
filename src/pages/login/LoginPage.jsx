@@ -31,7 +31,7 @@ function LoginPage() {
 	}	
 
 	return (
-		<div className='w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-purple-50 to-purple-400'>
+		<div className='w-full h-dvh overflow-hidden flex justify-center items-center bg-gradient-to-br from-purple-50 to-purple-400'>
 			<div className='lg:w-2/5 md:w-1/2 sm:w-4/5 bg-white/70 shadow-lg rounded-lg lg:py-16 lg:px-5 sm:px-3 sm:py-10'>
 				<header className='mb-10'>
 					<h1 className='lg:font-extrabold lg:text-4xl sm:font-bold sm:text-2xl text-neutral-700 text-center'>

@@ -49,6 +49,31 @@ export default function App() {
 		}
 	}, [navigate, pathname]) // Dependencies for useEffect
 
+	useEffect(() => {
+		const handleTimeOut = () => {
+			toast.error(Msg.COMMON.TIMEOUT);
+		}
+
+		const handleTooManyRequests = () => {
+			toast.error(Msg.COMMON.TOOMANYREQ);
+		}
+
+		const handleUnauthorized = () => {
+			toast.error(Msg.COMMON.UNAUTHORIZED);
+			navigate("/login")
+		}
+
+		document.body.addEventListener('timeout', handleTimeOut);
+		document.body.addEventListener('tooManyRequests', handleTooManyRequests);
+		document.body.addEventListener('unauthorized', handleUnauthorized);
+
+		return () => {
+			document.body.removeEventListener("timeout", handleTimeOut)
+			document.body.removeEventListener("tooManyRequests", handleTooManyRequests)
+			document.body.removeEventListener("unauthorized", handleUnauthorized)
+		}
+	}, [])
+
 	return (
 		<div className="App min-h-screen">
 			<NotificationProvider />
