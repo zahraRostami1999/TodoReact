@@ -16,7 +16,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
             } else if (window.innerWidth < 1024) {
                 setTitleLengthLimit(40);
             } else {
-                setTitleLengthLimit(85);
+                setTitleLengthLimit(105);
             }
         };
 
@@ -55,11 +55,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                     </div>
                 )}
             </div>
-            <div className={`flex items-center flex-grow w-full mr-2 sm:px-3
-            ${isTaskTextLong ?
-                    isExpand ? "xl:ml-0 lg:ml-0"
-                        : "xl:ml-5"
-                    : "xl:ml-5 lg:ml-5"}`}
+            <div className={`flex items-center flex-grow w-full mr-2 sm:px-3`}
                 dir={ltr ? "ltr" : "rtl"}>
                 <p
                     style={{
