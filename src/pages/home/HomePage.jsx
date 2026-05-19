@@ -48,7 +48,9 @@ function TodoPage() {
 	};
 
 	useEffect(() => {
-		toast.success(Msg.WELLCOME.MSG)
+		if(Api.Auth.isLogedIn()){
+			toast.success(Msg.WELLCOME.MSG)
+		}
 	}, [])
 
 	return (
