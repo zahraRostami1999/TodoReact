@@ -37,7 +37,7 @@ const InputTasks = ({ addTask }) => {
 
                 <button
                     className="bg-orange-500 active:bg-orange-700 hover:bg-orange-600 text-white font-bold text-3xl lg:text-4xl
-                    lg:py-5 lg:px-8 py-2 px-5 lg:m-1 sm:m-1 rounded-full shadow-md transition duration-300 ease-in-out 
+                    lg:py-5 lg:px-8 py-2.5 px-5 lg:m-1 sm:m-1 rounded-full shadow-md transition duration-300 ease-in-out 
                     flex items-center justify-center"
                     onClick={handleAddBtn}
                 >
