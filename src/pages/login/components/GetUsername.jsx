@@ -62,14 +62,11 @@ export default function GetUsername({ get, set }) {
 				/>
 				<ErrorContainer text={get("error")} />
 			</div>
-			<div className='flex flex-col gap-5'>
-				<LoginButton
-					text='ورود'
-					disabled={get("error").length > 0}
-					isLoading={get("loading")}
-				/>
-				<LoginButton text='ورود با Souperlopers' disabled={true} />
-			</div>
+			<LoginButton
+				text='ورود'
+				disabled={get("error").length > 0}
+				isLoading={get("loading")}
+			/>
 		</form>
 	)
 }
