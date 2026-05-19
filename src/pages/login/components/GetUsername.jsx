@@ -47,6 +47,7 @@ export default function GetUsername({ get, set }) {
 
 		if (userExist.ok !== null) {
 			set("haveAccount", userExist.body.user_exists)
+			set("error", Msg.PASS.NO)
 			set("step", 2)
 		}
 	}
