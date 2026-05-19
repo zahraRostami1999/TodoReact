@@ -32,7 +32,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
 
     return (
         <li
-            className={`flex lg:w-11/12 w-full ${isExpand ? "flex-col" : "flex-row sm:flex-col"} mx-auto justify-between my-4 lg:p-3 p-1.5 rounded-2xl bg-purple-50 shadow-lg hover:bg-purple-200 transition-all duration-300 ease-in-out transform hover:-translate-y-1`}>
+            className={`flex lg:w-11/12 w-full ${isExpand ? "flex-col" : "flex-row sm:flex-col"} mx-auto justify-between my-4 lg:p-3 p-1.5 rounded-2xl bg-purple-50 shadow-lg lg:hover:bg-purple-200 sm:active:bg-purple-200 transition-all duration-300 ease-in-out transform lg:hover:-translate-y-1`}>
             <div className='flex items-center gap-1.5 lg:w-[17%] sm:w-[50%]'>
                 <div className='flex items-center' dir='rtl'>
                     <TaskItemButtons taskId={task.id} dropdown={() => onToggleDropdown(task.id)} />
@@ -40,7 +40,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                 {isTaskTextLong && (
                     <button
                         onClick={() => setIsExpand(!isExpand)}
-                        className="text-red-600 p-2 flex justify-center items-start rounded-full hover:bg-orange-100">
+                        className="text-red-600 p-2 flex justify-center items-start rounded-full lg:hover:bg-orange-100 sm:active:bg-orange-100">
                         {isExpand ? expandIcons.collapse : expandIcons.expand}
                     </button>
                 )}
@@ -49,7 +49,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                     <div className="absolute z-[100] sm:-left-5 sm:top-6 lg:-left-16 lg:w-12 w-9 lg:h-12 h-9 lg:top-0 rounded-full shadow-xl bg-white border border-gray-200 flex flex-col space-y-1">
                         <button
                             onClick={deleteBtn.onClick}
-                            className="text-red-600 w-full h-full flex justify-center items-center rounded-full hover:bg-orange-100">
+                            className="text-red-600 w-full h-full flex justify-center items-center rounded-full lg:hover:bg-orange-100 sm:active:bg-orange-100">
                             {deleteBtn.icon}
                         </button>
                     </div>
