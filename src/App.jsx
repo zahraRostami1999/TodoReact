@@ -4,8 +4,8 @@ import HomePage from "./pages/home/HomePage.jsx"
 import NotificationProvider from "./components/notification/NotificationProvider.jsx"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom" // Keep these imports
 import Api from "./services/api/api.js"
-import { toast } from 'react-toastify'
-import Msg from './config/messages.js'
+import { toast } from "react-toastify"
+import Msg from "./config/messages.js"
 
 export default function App() {
 	document.title = "HISTX ToDo List"
@@ -17,14 +17,24 @@ export default function App() {
 		const init = async () => await Api.Auth.init()
 		init()
 
-		document.body.addEventListener(
-			'timeout', e => toast.error(Msg.COMMON.CNN)
-		)
+		document.body.addEventListener("timeout", (e) => {
+			toast.error(Msg.COMMON.CNN)
+		})
+
+		document.body.addEventListener("tooManyRequests", (e) => {
+			toast.error(Msg.COMMON.TOO_MANY)
+		})
+
+		document.body.addEventListener("unauthorized", (e) => {
+			toast.error(Msg.COMMON.UNAUTH)
+			Api.Auth.logout()
+			setTimeout(() => navigate("/login"), 2000)
+		})
 	}, [])
 
 	const navigate = useNavigate() // Hook for navigation
 	const location = useLocation() // Hook to get current location
-	const pathname = location.pathname;
+	const pathname = location.pathname
 
 	// run everytime path changes
 	useEffect(() => {
@@ -40,11 +50,11 @@ export default function App() {
 	}, [navigate, pathname]) // Dependencies for useEffect
 
 	return (
-		<div className='App min-h-screen'>
+		<div className="App min-h-screen">
 			<NotificationProvider />
 			<Routes>
-				<Route path='/login' element={<LoginPage />} />
-				<Route path='/' element={<HomePage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/" element={<HomePage />} />
 			</Routes>
 		</div>
 	)

@@ -17,6 +17,8 @@ export default class Msg {
 	}
 
 	static COMMON = {
+		UNAUTH: "unauthenticated",
+		TOO_MANY: "too many requests",
 		CNN: "هی! برو اتصال خودتو چک کن جوجوووو",
 		FORBID: (char) =>
 			`وای! نمیتونی از کاراکتر ${char === " " ? "فاصله" : char} استفاده کنی`,
