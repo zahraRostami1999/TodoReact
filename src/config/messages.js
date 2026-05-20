@@ -21,7 +21,7 @@ export default class Msg {
 		FORBID: (char) =>
 			`وای! نمیتونی از کاراکتر ${char === " " ? "فاصله" : char} استفاده کنی`,
 		TOOMANYREQ: "چخبره!! یکم آروم تر",
-		UNAUTHORIZED: "مشکلی پیش اومده لطفا از اول وارد شو"
+		UNAUTHORIZED: "مثل اینکه هویتت واسه من ناشناسه! می‌شه یه بار دیگه معرفی کنی خودتو؟"
 	}
 
 	static WELLCOME = {
