@@ -54,7 +54,7 @@ export default function GetUsername({ get, set }) {
 
 	return (
 		<form onSubmit={(e) => handleEnter(e)} className='flex flex-col lg:gap-7 sm:gap-10'>
-			<div className='flex flex-col gap-1'>
+			<div className='flex flex-col gap-2'>
 				<FloatInput
 					type={"text"}
 					label='نام کاربری'

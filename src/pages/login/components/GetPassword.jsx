@@ -75,22 +75,24 @@ export default function GetPassword({ get, set }) {
 					username={get("userInput").username}
 					message={get("haveAccount") ? Const.UI.HAVE : Const.UI.DHAVE}
 				/>
-				<FloatInput
-					type='password'
-					label='رمز عبور'
-					value={get("userInput").password}
-					onChange={(e) => handleChange(e, "password")}
-				/>
-				{!get("haveAccount") && (
+				<div className={`flex flex-col ${get("haveAccount")? "gap-2" : "gap-5"}`}>
 					<FloatInput
 						type='password'
-						label='تکرار رمز عبور'
-						value={get("userInput").confirmPassword}
-						onChange={(e) => handleChange(e, "confirmPassword")}
-						autoFocus={false}
+						label='رمز عبور'
+						value={get("userInput").password}
+						onChange={(e) => handleChange(e, "password")}
 					/>
-				)}
-				<ErrorContainer text={get("error")} />
+					{!get("haveAccount") && (
+						<FloatInput
+							type='password'
+							label='تکرار رمز عبور'
+							value={get("userInput").confirmPassword}
+							onChange={(e) => handleChange(e, "confirmPassword")}
+							autoFocus={false}
+						/>
+					)}
+					<ErrorContainer text={get("error")} />
+				</div>
 			</div>
 			<LoginButton
 				text='ورود'

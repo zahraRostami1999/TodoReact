@@ -35,6 +35,7 @@ function TodoPage() {
 			}
 			setIsInitialLoading(false);
 			setLoadingMore(false);
+			toast.success(Msg.WELLCOME.MSG)
 		};
 
 		getTasks();
@@ -47,12 +48,6 @@ function TodoPage() {
 		setLoadingMore(true);
 		setPage(prev => prev + 1);
 	};
-
-	useEffect(() => {
-		if (Api.Auth.isLogedIn()) {
-			toast.success(Msg.WELLCOME.MSG)
-		}
-	}, [])
 
 	return (
 		<>
