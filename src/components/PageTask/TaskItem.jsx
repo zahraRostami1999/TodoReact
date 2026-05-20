@@ -17,7 +17,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
             } else if (window.innerWidth < 1024) {
                 setTitleLengthLimit(40);
             } else {
-                setTitleLengthLimit(105);
+                setTitleLengthLimit(95);
             }
         };
 

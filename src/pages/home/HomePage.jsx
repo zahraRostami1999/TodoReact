@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import Api from "../../services/api/api.js"
-import { Header, InputTasks, TasksList } from "../../components/PageTask/index"
+import { Header, InputTasks, TasksList, LoadingScreen } from "../../components/PageTask/index"
 import { useDispatch } from "react-redux";
 import { set_tasks, append_tasks, add_task } from "../../redux/TaskSlice";
 import Msg from "../../config/messages.js";
 import { toast } from "react-toastify";
 
 function TodoPage() {
+	const [isInitialLoading, setIsInitialLoading] = useState(true);
 	const [page, setPage] = useState(1)
 	const [total_pages, setTotal_pages] = useState()
 	const [loadingMore, setLoadingMore] = useState(false);
@@ -32,7 +33,7 @@ function TodoPage() {
 			} else {
 				dispatch(append_tasks(response.content));
 			}
-
+			setIsInitialLoading(false);
 			setLoadingMore(false);
 		};
 
@@ -48,26 +49,29 @@ function TodoPage() {
 	};
 
 	useEffect(() => {
-		if(Api.Auth.isLogedIn()){
+		if (Api.Auth.isLogedIn()) {
 			toast.success(Msg.WELLCOME.MSG)
 		}
 	}, [])
 
 	return (
 		<>
-			<div className='w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600'>
-				<div className='flex flex-col gap-10 h-full p-5'>
-					<Header />
-					<div className="sticky top-2 z-10">
-						<InputTasks addTask={addTask} />
+			{isInitialLoading && <LoadingScreen />}
+			{!isInitialLoading &&
+				(<div className='w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600'>
+					<div className='flex flex-col gap-10 min-h-screen p-5'>
+						<Header />
+						<div className="sticky top-2 z-10">
+							<InputTasks addTask={addTask} />
+						</div>
+						< TasksList
+							hasMore={page < total_pages}
+							onLoadMore={loadMoreTasks}
+							loadingMore={loadingMore}
+						/>
 					</div>
-					< TasksList
-						hasMore={page < total_pages}
-						onLoadMore={loadMoreTasks}
-						loadingMore={loadingMore}
-					/>
-				</div>
-			</div>
+				</div>)
+			}
 		</>
 	)
 }
