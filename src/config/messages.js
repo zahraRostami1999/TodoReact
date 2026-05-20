@@ -34,6 +34,6 @@ export default class Msg {
 	}
 
 	static LOADING = {
-		MSG: "در حال دریافت و آماده‌سازی لیست تسک‌ها..."
+		MSG: "HISTX TODO"
 	}
 }
