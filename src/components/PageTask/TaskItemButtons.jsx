@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPrimaryButtons } from "./TaskButtons";
 
 const TaskItemButtons = ({ taskId, dropdown }) => {
-
     const dispatch = useDispatch();
-    const buttons = getPrimaryButtons(dispatch, taskId, dropdown);
+    const [loadingBtnKey, setLoadingBtnKey] = useState(null);
+
+    const buttons = getPrimaryButtons(dispatch, taskId, dropdown, setLoadingBtnKey);
 
     return (
         <div className="flex items-center">
@@ -12,9 +14,14 @@ const TaskItemButtons = ({ taskId, dropdown }) => {
                 <button
                     key={btn.key}
                     onClick={btn.onClick}
-                    className={btn.className}
+                    disabled={loadingBtnKey === btn.key}
+                    className={`${btn.className} ${loadingBtnKey === btn.key ? "opacity-60 cursor-not-allowed" : ""}`}
                 >
-                    {btn.icon}
+                    {loadingBtnKey === btn.key ? (
+                        <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                        btn.icon
+                    )}
                 </button>
             ))}
         </div>

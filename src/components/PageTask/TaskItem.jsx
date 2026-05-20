@@ -8,6 +8,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
     const [titleLengthLimit, setTitleLengthLimit] = useState(85);
     const [isExpand, setIsExpand] = useState(false);
     const ltr = task.description && !/^[\u0600-\u06FF]/.test(task.description.trim());
+    const [loadingBtnKey, setLoadingBtnKey] = useState(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -28,7 +29,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
     const isTaskTextLong = task?.description?.length > titleLengthLimit;
 
     const dispatch = useDispatch();
-    const deleteBtn = getDeleteButton(dispatch, task.id);
+    const deleteBtn = getDeleteButton(dispatch, task.id, setLoadingBtnKey);
 
     return (
         <li
@@ -46,11 +47,17 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                 )}
 
                 {visibleDropDownIndex === task.id && (
-                    <div className="absolute z-[100] sm:-left-5 sm:top-6 lg:-left-16 lg:w-12 w-9 lg:h-12 h-9 lg:top-0 rounded-full shadow-xl bg-white border border-gray-200 flex flex-col space-y-1">
+                    <div className="absolute z-[100] sm:-left-5 sm:top-6 lg:-left-12 lg:w-10 w-9 lg:h-10 h-9 lg:top-2 rounded-full shadow-xl bg-white border border-gray-200 flex flex-col space-y-1">
                         <button
+                            key="delete"
                             onClick={deleteBtn.onClick}
-                            className="text-red-600 w-full h-full flex justify-center items-center rounded-full lg:hover:bg-orange-100 sm:active:bg-orange-100">
-                            {deleteBtn.icon}
+                            disabled={loadingBtnKey === "delete"}
+                            className={`${loadingBtnKey === "delete" ? "opacity-60 cursor-not-allowed" : ""}text-red-600 w-full h-full flex justify-center items-center rounded-full lg:hover:bg-orange-100 sm:active:bg-orange-100`}>
+                            {loadingBtnKey === "delete" ? (
+                                <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                                deleteBtn.icon
+                            )}
                         </button>
                     </div>
                 )}

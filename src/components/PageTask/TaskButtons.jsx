@@ -15,23 +15,44 @@ import {
     moveDownTask
 } from "./TaskActions";
 
-export const getPrimaryButtons = (dispatch, taskId, dropdown) => [
+export const getPrimaryButtons = (dispatch, taskId, dropdown, setLoadingBtnKey) => [
     {
         key: "done",
         icon: <FaCheck size={18} />,
-        onClick: () => handleDoneTask(dispatch, taskId),
+        onClick: async () => {
+            setLoadingBtnKey("done");
+            try {
+                await handleDoneTask(dispatch, taskId);
+            } finally {
+                setLoadingBtnKey(null);
+            }
+        },
         className: "text-purple-500 hover:bg-orange-50 p-2 rounded-full"
     },
     {
         key: "move_up",
         icon: <FaAngleUp size={20} />,
-        onClick: () => moveUpTask(dispatch, taskId),
+        onClick: async () => {
+            setLoadingBtnKey("move_up");
+            try {
+                await moveUpTask(dispatch, taskId);
+            } finally {
+                setLoadingBtnKey(null);
+            }
+        },
         className: "text-neutral-600 hover:bg-violet-50 p-2 rounded-full"
     },
     {
         key: "move_down",
         icon: <FaAngleDown size={20} />,
-        onClick: () => moveDownTask(dispatch, taskId),
+        onClick: async () => {
+            setLoadingBtnKey("move_down");
+            try {
+                await moveDownTask(dispatch, taskId);
+            } finally {
+                setLoadingBtnKey(null);
+            }
+        },
         className: "text-neutral-600 hover:bg-violet-50 p-2 rounded-full"
     },
     {
@@ -42,12 +63,19 @@ export const getPrimaryButtons = (dispatch, taskId, dropdown) => [
     }
 ];
 
-export const getDeleteButton = (dispatch, taskId) => ({
-    icon: <FaTrash size={22} />,
-    onClick: () => handleDeleteTask(dispatch, taskId)
+export const getDeleteButton = (dispatch, taskId, setLoadingBtnKey) => ({
+    icon: <FaTrash size={20} />,
+    onClick: async () => {
+        setLoadingBtnKey("delete");
+        try {
+            await handleDeleteTask(dispatch, taskId);
+        } finally {
+            setLoadingBtnKey(null);
+        }
+    },
 });
 
 export const expandIcons = {
-    expand: <FaPlus size={18} className="text-orange-600"/>,
+    expand: <FaPlus size={18} className="text-orange-600" />,
     collapse: <FaMinus size={18} />
 }
