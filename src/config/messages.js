@@ -20,8 +20,8 @@ export default class Msg {
 		CNN: "هی! برو اتصال خودتو چک کن جوجوووو",
 		FORBID: (char) =>
 			`وای! نمیتونی از کاراکتر ${char === " " ? "فاصله" : char} استفاده کنی`,
-		TOOMANYREQ: "ارور در خواست بیش از حد مجاز",
-		UNAUTHORIZED: "ارور 401"
+		TOOMANYREQ: "چخبره!! یکم آروم تر",
+		UNAUTHORIZED: "مشکلی پیش اومده لطفا از اول وارد شو"
 	}
 
 	static WELLCOME = {
