@@ -34,6 +34,6 @@ export default class Msg {
 	}
 
 	static LOADING = {
-		MSG: "HISTX TODO"
+		MSG: "HISTX To-Do List"
 	}
 }
