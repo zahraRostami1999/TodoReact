@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { set_tasks, append_tasks, add_task } from "../../redux/TaskSlice";
 import Msg from "../../config/messages.js";
 import { toast } from "react-toastify";
+import image from "../../assets/bg.svg";
 
 function TodoPage() {
 	const [isInitialLoading, setIsInitialLoading] = useState(true);
@@ -53,19 +54,30 @@ function TodoPage() {
 		<>
 			{isInitialLoading && <LoadingScreen />}
 			{!isInitialLoading &&
-				(<div className='w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600'>
-					<div className='flex flex-col gap-10 min-h-screen p-5'>
-						<Header />
-						<div className="sticky top-2 z-10">
-							<InputTasks addTask={addTask} />
-						</div>
-						< TasksList
-							hasMore={page < total_pages}
-							onLoadMore={loadMoreTasks}
-							loadingMore={loadingMore}
+				(
+					<div
+						className="w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600">
+						<div
+							className="absolute inset-0 opacity-30"
+							style={{
+								backgroundImage: `url(${image})`,
+								backgroundRepeat: "no-repeat",
+								backgroundPosition: "center",
+								backgroundSize: "cover"
+							}}
 						/>
-					</div>
-				</div>)
+						<div className="relative flex flex-col gap-10 min-h-screen p-5">
+							<Header />
+							<div className="sticky top-2 z-10">
+								<InputTasks addTask={addTask} />
+							</div>
+							< TasksList
+								hasMore={page < total_pages}
+								onLoadMore={loadMoreTasks}
+								loadingMore={loadingMore}
+							/>
+						</div>
+					</div>)
 			}
 		</>
 	)
