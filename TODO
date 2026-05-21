@@ -1,1 +1,2 @@
-TODO_S check the packages one-by-one and remove redundant ones
+TODO_Z action buttons' spinner changes task width (which shouldn't)
+TODO_Z add loading to add_task button
