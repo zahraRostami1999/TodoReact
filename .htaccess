@@ -1,3 +1,7 @@
+# ---------------------------- deploy helper
+# folder permission: 755
+# file permission: 644
+
 # ---------------------------- general directives
 
 RewriteEngine on
