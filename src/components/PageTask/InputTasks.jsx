@@ -35,7 +35,7 @@ const InputTasks = ({ addTask, loading }) => {
                 focus-within:outline-none focus-within:ring-4 focus-within:ring-orange-600/30 focus-within:border-orange-300
                 focus-within:shadow-[0_0_0_6px_rgba(249,115,22,0.25)]">
                 <button
-                    className={`${loading ? "opacity-60 cursor-not-allowed" : ""} bg-orange-500 active:bg-orange-700 hover:bg-orange-600 text-white font-bold text-3xl lg:text-4xl
+                    className={`${loading ? "opacity-60 cursor-not-allowed" : ""} lg:w-16 lg:h-16 w-11 h-11 bg-orange-500 active:bg-orange-700 hover:bg-orange-600 text-white font-bold text-3xl lg:text-4xl
                       lg:m-1 sm:m-1 rounded-full shadow-md transition duration-300 ease-in-out 
                     flex items-center justify-center`}
                     onClick={handleAddBtn}
