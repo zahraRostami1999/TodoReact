@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const InputTasks = ({ addTask }) => {
+const InputTasks = ({ addTask, loading }) => {
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const textareaRef = useRef(null);
 
@@ -34,16 +34,18 @@ const InputTasks = ({ addTask }) => {
             <div className="flex items-center w-full sm:p-1 lg:max-w-3xl xl:max-w-3xl md:max-w-3xl sm:max-w-3xl bg-white rounded-full shadow-lg overflow-hidden 
                 focus-within:outline-none focus-within:ring-4 focus-within:ring-orange-600/30 focus-within:border-orange-300
                 focus-within:shadow-[0_0_0_6px_rgba(249,115,22,0.25)]">
-
                 <button
-                    className="bg-orange-500 active:bg-orange-700 hover:bg-orange-600 text-white font-bold text-3xl lg:text-4xl
-                    lg:py-5 lg:px-8 py-2.5 px-5 lg:m-1 sm:m-1 rounded-full shadow-md transition duration-300 ease-in-out 
-                    flex items-center justify-center"
+                    className={`${loading ? "opacity-60 cursor-not-allowed" : ""} bg-orange-500 active:bg-orange-700 hover:bg-orange-600 text-white font-bold text-3xl lg:text-4xl
+                      lg:m-1 sm:m-1 rounded-full shadow-md transition duration-300 ease-in-out 
+                    flex items-center justify-center`}
                     onClick={handleAddBtn}
                 >
-                    +
+                    {loading ? (
+                        <span className="inline-block w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                        "+"
+                    )}
                 </button>
-
                 <textarea
                     ref={textareaRef}
                     rows={1}
@@ -61,7 +63,7 @@ const InputTasks = ({ addTask }) => {
                     }}
                 />
             </div>
-        </div>
+        </div >
     );
 };
 

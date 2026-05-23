@@ -9,17 +9,24 @@ import image from "../../assets/bg.svg";
 
 function TodoPage() {
 	const [isInitialLoading, setIsInitialLoading] = useState(true);
+	const [isAddLoading, setIsAddLoading] = useState(false);
 	const [page, setPage] = useState(1)
 	const [total_pages, setTotal_pages] = useState()
 	const [loadingMore, setLoadingMore] = useState(false);
 	const dispatch = useDispatch();
 
 	const addTask = async (new_task) => {
+		setIsAddLoading(true);
 		const res = await Api.Task.create(new_task)
-		if (!res) return;
+		if (!res) {
+			setIsAddLoading(false);
+			toast.error(Msg.TASKINPUT.ERR);
+			return;
+		};
 		let task_id = res;
 		let task_obj = { id: task_id, description: new_task, done: false }
 		dispatch(add_task(task_obj))
+		setIsAddLoading(false);
 		toast.success(Msg.TASKINPUT.ADD)
 	}
 
@@ -68,7 +75,7 @@ function TodoPage() {
 					<div className="relative z-10 flex flex-col gap-10 min-h-screen p-5">
 						<Header />
 						<div className="sticky top-2 z-20">
-							<InputTasks addTask={addTask} />
+							<InputTasks addTask={addTask} loading={isAddLoading} />
 						</div>
 						<TasksList
 							hasMore={page < total_pages}
