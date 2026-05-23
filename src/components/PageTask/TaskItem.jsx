@@ -54,7 +54,7 @@ function TaskItem({ task, onToggleDropdown, visibleDropDownIndex }) {
                             disabled={loadingBtnKey === "delete"}
                             className={`${loadingBtnKey === "delete" ? "opacity-60 cursor-not-allowed" : ""}text-red-600 w-full h-full flex justify-center items-center rounded-full lg:hover:bg-orange-100 sm:active:bg-orange-100`}>
                             {loadingBtnKey === "delete" ? (
-                                <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                <span className="inline-block w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
                             ) : (
                                 deleteBtn.icon
                             )}

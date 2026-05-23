@@ -57,7 +57,7 @@ export const getPrimaryButtons = (dispatch, taskId, dropdown, setLoadingBtnKey) 
     },
     {
         key: "more",
-        icon: <FaEllipsisV />,
+        icon: <FaEllipsisV size={16}/>,
         onClick: dropdown,
         className: "text-neutral-500 hover:bg-neutral-100 p-2 rounded-full"
     }
