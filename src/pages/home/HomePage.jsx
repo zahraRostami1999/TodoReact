@@ -43,11 +43,15 @@ function TodoPage() {
 			}
 			setIsInitialLoading(false);
 			setLoadingMore(false);
-			toast.success(Msg.WELLCOME.MSG)
 		};
 
 		getTasks();
 	}, [page]);
+
+	useEffect(() => {
+		if (isInitialLoading) return;
+		toast.success(Msg.WELLCOME.MSG);
+	},[isInitialLoading])
 
 	const loadMoreTasks = async () => {
 		if (loadingMore) return;
