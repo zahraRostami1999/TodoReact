@@ -54,31 +54,31 @@ function TodoPage() {
 		<>
 			{isInitialLoading && <LoadingScreen />}
 			{!isInitialLoading &&
-				(
+				<div className="w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600 relative">
 					<div
-						className="w-full min-h-screen text-neutral-800 bg-gradient-to-br from-purple-100 to-purple-600">
-						<div
-							className="absolute inset-0 opacity-30"
-							style={{
-								backgroundImage: `url(${image})`,
-								backgroundRepeat: "no-repeat",
-								backgroundPosition: "center",
-								backgroundSize: "cover"
-							}}
-						/>
-						<div className="relative flex flex-col gap-10 min-h-screen p-5">
-							<Header />
-							<div className="sticky top-2 z-10">
-								<InputTasks addTask={addTask} />
-							</div>
-							< TasksList
-								hasMore={page < total_pages}
-								onLoadMore={loadMoreTasks}
-								loadingMore={loadingMore}
-							/>
+						className="fixed inset-0 pointer-events-none opacity-30"
+						style={{
+							backgroundImage: `url(${image})`,
+							backgroundRepeat: 'repeat',
+							backgroundSize: 'contain',
+							backgroundPosition: 'center',
+							zIndex: 0
+						}}
+					/>
+					<div className="relative z-10 flex flex-col gap-10 min-h-screen p-5">
+						<Header />
+						<div className="sticky top-2 z-20">
+							<InputTasks addTask={addTask} />
 						</div>
-					</div>)
+						<TasksList
+							hasMore={page < total_pages}
+							onLoadMore={loadMoreTasks}
+							loadingMore={loadingMore}
+						/>
+					</div>
+				</div>
 			}
+
 		</>
 	)
 }
