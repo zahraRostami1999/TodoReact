@@ -35,7 +35,7 @@ function LoginPage() {
 			<div className='lg:w-2/5 md:w-1/2 sm:w-4/5 bg-white/70 shadow-lg rounded-lg lg:py-16 lg:px-5 sm:px-3 sm:py-10'>
 				<header className='mb-10'>
 					<h1 className='lg:font-extrabold lg:text-4xl sm:font-bold sm:text-2xl text-neutral-700 text-center'>
-						😡 HISTX ToDo list 😇
+						😡 لیست وظایف 😇
 					</h1>
 				</header>
 				<main className='flex flex-col gap-10'>
