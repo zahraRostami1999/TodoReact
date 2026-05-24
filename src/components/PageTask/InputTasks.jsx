@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 const InputTasks = ({ addTask, loading }) => {
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const textareaRef = useRef(null);
+    const [isLongText, setIsLongText] = useState(false);
 
     const ltr = newTaskTitle && !/^[\u0600-\u06FF]/.test(newTaskTitle)
 
@@ -19,9 +20,17 @@ const InputTasks = ({ addTask, loading }) => {
     };
 
     useEffect(() => {
-        autoResize()
-    }, [newTaskTitle])
+        autoResize();
 
+        const textWithoutSpaces = newTaskTitle.replace(/\s+/g, '');
+
+        if (textWithoutSpaces.length > 37) {
+            setIsLongText(true);
+        } else {
+            setIsLongText(false);
+        }
+    }, [newTaskTitle]);
+    
     const handleAddBtn = () => {
         if (newTaskTitle.trim() !== "") {
             addTask(newTaskTitle);
@@ -31,9 +40,9 @@ const InputTasks = ({ addTask, loading }) => {
 
     return (
         <div className="w-full flex justify-center flex-wrap lg:p-1">
-            <div className="flex items-center w-full sm:p-1 lg:max-w-3xl xl:max-w-3xl md:max-w-3xl sm:max-w-3xl bg-white rounded-full shadow-lg overflow-hidden 
+            <div className={`${isLongText ? "rounded-3xl items-end" : "rounded-full items-center"} flex w-full sm:p-1 lg:max-w-3xl xl:max-w-3xl md:max-w-3xl sm:max-w-3xl bg-white shadow-lg overflow-hidden 
                 focus-within:outline-none focus-within:ring-4 focus-within:ring-orange-600/30 focus-within:border-orange-300
-                focus-within:shadow-[0_0_0_6px_rgba(249,115,22,0.25)]">
+                focus-within:shadow-[0_0_0_6px_rgba(249,115,22,0.25)]`}>
                 <button
                     className={`${loading ? "opacity-60 cursor-not-allowed" : ""} lg:w-16 lg:h-16 w-11 h-11 bg-orange-500 active:bg-orange-700 hover:bg-orange-600 text-white font-bold text-3xl lg:text-4xl
                       lg:m-1 sm:m-1 rounded-full shadow-md transition duration-300 ease-in-out 
@@ -49,8 +58,8 @@ const InputTasks = ({ addTask, loading }) => {
                 <textarea
                     ref={textareaRef}
                     rows={1}
-                    className="flex-grow lg:px-6 sm:px-3 px-5 py-2 lg:mx-0 sm:mx-0 text-xl lg:text-3xl font-medium text-gray-700 placeholder-gray-400
-                     border border-transparent rounded-3xl leading-relaxed resize-none bg-transparent outline-none overflow-hidden"
+                    className={`flex-grow lg:px-6 sm:px-3 px-5 py-2 lg:mx-0 sm:mx-0 text-xl lg:text-3xl font-medium text-gray-700 placeholder-gray-400
+                     border border-transparent rounded-3xl leading-relaxed resize-none bg-transparent outline-none overflow-hidden`}
                     placeholder="چیکار باید بکنیم امروز؟"
                     dir={`${ltr ? "ltr" : "rtl"}`}
                     value={newTaskTitle}
